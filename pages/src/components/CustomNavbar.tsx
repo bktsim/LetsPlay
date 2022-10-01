@@ -12,47 +12,53 @@ import {
 
 const vSpace = 1.5;
 const Texts = {
-  profileInfo: "Profile Information"
-}
+  profileInfo: "Profile Information",
+};
 
-const CustomTextarea = (field: string, currentText: string, rows? : number) => 
-  <Textarea 
+const CustomTextarea = (field: string, currentText: string, rows?: number) => (
+  <Textarea
     animated={false}
     value={currentText}
     fullWidth
     minRows={rows ? rows : 1}
     bordered
     color="secondary"
-    labelPlaceholder={field}
+    label={field}
   />
+);
 
-const saveChanges = () => {
-
-}
+const saveChanges = () => {};
 
 const CustomPopover = () => {
   return (
-    <Container gap={3} justify="center" direction="column" alignItems="stretch">
-      <Spacer y={vSpace/2} />
-      <Text size={23} weight="bold"> Profile Information </Text>
-      <Spacer y={vSpace} />
+    <Container justify="center" direction="column" alignItems="stretch">
+      <Spacer y={vSpace / 2} />
+      <Text size={23} b>
+        Profile Information
+      </Text>
+      <Spacer y={0.5} />
       {CustomTextarea("Name", "Ariana Wattson")}
-      <Spacer y={vSpace} />
+      <Spacer y={0.5} />
       {CustomTextarea("Pronoun", "She/Her/Hers")}
-      <Spacer y={vSpace} />
+      <Spacer y={0.5} />
       {CustomTextarea("Location", "Vancouver")}
-      <Spacer y={vSpace} />
+      <Spacer y={0.5} />
       {CustomTextarea("Team", "Infrastructure")}
-      <Spacer y={vSpace} />
+      <Spacer y={0.5} />
       {CustomTextarea("Biography", "Hello world", 3)}
-      <Spacer y={vSpace} />
+      <Spacer y={0.5} />
       {CustomTextarea("Social Medias", "None")}
-      <Spacer y={vSpace / 2} />
-      <Button onClick={saveChanges}>Save</Button>
-      <Spacer y={vSpace / 2} />
-      <Button onClick={saveChanges}>Log Out</Button>
+      <Spacer y={1} />
+      <Button onClick={saveChanges}>
+        <b>Save</b>
+      </Button>
+      <Spacer y={0.5} />
+      <Button onClick={saveChanges}>
+        <b>Log Out</b>
+      </Button>
+      <Spacer y={1} />
     </Container>
-  )
+  );
 };
 
 const CustomNavbar = () => {

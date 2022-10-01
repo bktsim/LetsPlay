@@ -8,6 +8,7 @@ import {
   Avatar,
   Badge,
   Button,
+  Spacer,
 } from "@nextui-org/react";
 import { useState } from "react";
 
@@ -37,7 +38,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
   return (
     <Container
       css={{
-        width: 500,
+        width: 395,
         height: 200,
       }}
     >
@@ -60,20 +61,43 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
               margin: 0,
               wordBreak: "break-word",
               alignSelf: "center",
+              flexDirection: "column",
             }}
           >
-            <Text b h5 css={{ marginBottom: -2 }}>
-              {`${name} (${pronouns})`}
-            </Text>
-            <Text small css={{ marginBottom: 15 }}>
-              <b>{`Team: ${team} @ ${location}`}</b>
-            </Text>
+            <Container
+              css={{
+                flexDirection: "column",
+                display: "flex",
+                padding: 0,
+              }}
+            >
+              <Text b h5>
+                {name}
+              </Text>
+              <Text
+                size={14}
+                css={{ marginBottom: -10, marginTop: -11, paddingLeft: 5 }}
+              >
+                <b>Pronouns: </b>
+                {pronouns}
+              </Text>
+              <Spacer y={0.25} />
+              <Text size={14} css={{ paddingLeft: 5, marginBottom: -10 }}>
+                <b>Team: </b>
+                {team}
+              </Text>
+              <Spacer y={0.25} />
+              <Text size={14} css={{ paddingLeft: 5, marginBottom: 15 }}>
+                <b>Location: </b>
+                {location}
+              </Text>
+            </Container>
             <Container
               css={{
                 display: "flex",
                 justifyContent: "left",
                 padding: 0,
-                marginTop: 5,
+                marginTop: -5,
               }}
             >
               {tags.map((e) => (
@@ -104,9 +128,10 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
               }}
             />
             <Text h3>{name}</Text>
-            <Text
-              css={{ marginTop: -16, marginBottom: 10 }}
-            >{`Pronouns: ${pronouns}`}</Text>
+            <Text css={{ marginTop: -16, marginBottom: 10 }}>
+              <b>Pronouns: </b>
+              {pronouns}
+            </Text>
             <Card
               css={{
                 justifyContent: "center",

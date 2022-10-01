@@ -6,7 +6,7 @@ import EventCard from "./src/components/EventCard";
 import ProfileCard from "./src/components/ProfileCard";
 
 const profile = {
-  name: "The Minion",
+  name: "FirstNameABC LastNameCDE",
   pronouns: "They/Them",
   team: "Tomfoolery Department",
   icon: "https://styles.redditmedia.com/t5_2tc6s/styles/communityIcon_vn92glo5ugy51.png",
@@ -46,6 +46,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
+      <ProfileCard info={profile} />
       <EventCard info={event} />
       <EventCard info={eventOnline} />
     </div>
