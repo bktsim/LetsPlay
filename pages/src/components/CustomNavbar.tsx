@@ -14,7 +14,7 @@ const CustomNavbar = () => {
     <Navbar isBordered variant={"static"}>
       <Navbar.Brand>
         <Text b color="inherit">
-          ConnectApp
+          SAPConnect
         </Text>
       </Navbar.Brand>
       <Navbar.Content hideIn="xs"></Navbar.Content>
@@ -22,12 +22,15 @@ const CustomNavbar = () => {
         <Navbar.Item>
           <Popover isBordered disableShadow>
             <Popover.Trigger>
-              <Button auto flat>
-                Open Popover
+              <Button css={{ background: "white" }}>
+                <User
+                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  name="Ariana Wattson"
+                />
               </Button>
             </Popover.Trigger>
             <Popover.Content>
-              <Text css={{ p: "$10", background: "black" }}>
+              <Text css={{ p: "$10" }}>
                 This is the content of the popover.
               </Text>
             </Popover.Content>
