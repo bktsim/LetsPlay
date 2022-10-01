@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import CustomNavbar from "./src/components/CustomNavbar";
+import EventCard from "./src/components/EventCard";
 import ProfileCard from "./src/components/ProfileCard";
 
 const profile = {
@@ -14,6 +15,28 @@ const profile = {
   tags: ["bananas", "cereal", "memes"],
 };
 
+const event = {
+  name: "Banana Mischief",
+  location: "Main Mall UBC, Vancouver BC, V6T1Z2, Canada",
+  type: "In-Person",
+  date: new Date(2022, 11, 24, 12, 0),
+  organizer: "The Great Minion",
+  description:
+    "Throw all the bananas around. Put bananas in peoples bags without them noticing. Spread the bananas and chaos!",
+  tags: ["bananas", "mischief"],
+};
+
+const eventOnline = {
+  name: "Banana Mischief (Online)",
+  location: "https://zoom.us/",
+  type: "Online",
+  date: new Date(2022, 11, 24, 14, 0),
+  organizer: "The Great Minion",
+  description:
+    "Throw all the bananas around. Put bananas in peoples bags without them noticing. Spread the bananas and chaos!",
+  tags: ["bananas", "mischief", "online"],
+};
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -23,7 +46,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
-      <ProfileCard info={profile} />
+      <EventCard info={event} />
+      <EventCard info={eventOnline} />
     </div>
   );
 };
