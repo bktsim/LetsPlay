@@ -38,7 +38,7 @@ const EventCard = ({ info }: EventCardProps) => {
   return (
     <Container
       css={{
-        width: 300,
+        width: 395,
         height: 200,
       }}
     >
