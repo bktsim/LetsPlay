@@ -1,9 +1,18 @@
-import { Card, User } from "@nextui-org/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import CustomNavbar from "./src/components/CustomNavbar";
+import ProfileCard from "./src/components/ProfileCard";
+
+const profile = {
+  name: "The Minion",
+  pronouns: "They/Them",
+  team: "Tomfoolery Department",
+  icon: "https://styles.redditmedia.com/t5_2tc6s/styles/communityIcon_vn92glo5ugy51.png",
+  location: "The Tomfoolery Tower",
+  bio: "The best toomfooler in the house. This is a long description because the minions like to play around and break things so they typ every long things that dont make sense lolololO!!JIOASUJDIUAHSIDHASIDHUAISDHASIDHIASHDIAUHSDIASHDIAHSDIAUHSD haha lol gotem",
+  tags: ["bananas", "cereal", "memes"],
+};
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +23,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
+      <ProfileCard info={profile} />
     </div>
   );
 };

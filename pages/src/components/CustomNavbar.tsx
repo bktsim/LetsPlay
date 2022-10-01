@@ -22,7 +22,7 @@ const CustomNavbar = () => {
         <Navbar.Item>
           <Popover isBordered disableShadow>
             <Popover.Trigger>
-              <Button css={{ background: "white" }}>
+              <Button bordered color="gradient">
                 <User
                   src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                   name="Ariana Wattson"
