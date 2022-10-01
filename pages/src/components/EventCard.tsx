@@ -51,6 +51,7 @@ const EventCard = ({ info }: EventCardProps) => {
               wordBreak: "break-word",
               alignSelf: "center",
               display: "flex",
+              flexDirection: "column",
             }}
           >
             <Text b h5 css={{ marginBottom: 3 }}>
