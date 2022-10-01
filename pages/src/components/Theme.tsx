@@ -1,6 +1,6 @@
-import { createTheme, Theme } from "@nextui-org/react";
+import { createTheme } from "@nextui-org/react";
 
-export const sapTheme = createTheme({
+export const SAPTheme = createTheme({
   type: "light",
   theme: {
     fonts: {
@@ -8,6 +8,8 @@ export const sapTheme = createTheme({
     },
     colors: {
       sapBlue: "#00b9f2",
+      primary: "#00b9f2",
+      secondary: "#1661be",
       sapWhite: "#ffffff",
       sapDarkBlue: "#1661be",
       sapBlueGrad:
