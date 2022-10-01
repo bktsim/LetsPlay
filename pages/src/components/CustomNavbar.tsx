@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Container,
   Grid,
@@ -8,6 +9,7 @@ import {
   Text,
   Textarea,
   User,
+  useTheme,
 } from "@nextui-org/react";
 
 const vSpace = 1.5;
@@ -22,7 +24,7 @@ const CustomTextarea = (field: string, currentText: string, rows?: number) => (
     fullWidth
     minRows={rows ? rows : 1}
     bordered
-    color="secondary"
+    color="primary"
     label={field}
   />
 );
@@ -65,20 +67,27 @@ const CustomNavbar = () => {
   return (
     <Navbar isBordered variant={"static"}>
       <Navbar.Brand>
-        <Text b color="inherit">
-          SAPConnect
-        </Text>
+        <Container css={{ display: "flex", flexDirection: "row" }}>
+          <Text h2 color="$sapBlue" css={{ marginBottom: -5 }}>
+            SAP
+          </Text>
+          <Text h2 css={{ marginBottom: -5 }}>
+            Connect
+          </Text>
+        </Container>
       </Navbar.Brand>
       <Navbar.Content hideIn="xs"></Navbar.Content>
       <Navbar.Content hideIn="xs">
         <Navbar.Item>
           <Popover isBordered disableShadow>
             <Popover.Trigger>
-              <Button bordered color="gradient">
-                <User
+              <Button bordered color="primary">
+                <Avatar
+                  css={{ margin: 5 }}
+                  size={"sm"}
                   src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                  name="Ariana Wattson"
                 />
+                <Text>Ariana Wattson</Text>
               </Button>
             </Popover.Trigger>
             <Popover.Content>
