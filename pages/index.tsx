@@ -2,7 +2,7 @@ import { useTheme } from "@nextui-org/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import ClubCreation from "./src/components/ClubCreation";
+import ClubCreation from "./src/components/EventCreation";
 import CustomNavbar from "./src/components/CustomNavbar";
 import EventCard from "./src/components/EventCard";
 import ProfileCard from "./src/components/ProfileCard";
