@@ -41,7 +41,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
         height: 200,
       }}
     >
-      <Card isPressable onPress={handler}>
+      <Card isPressable isHoverable onPress={handler}>
         <Card.Body css={{ flexDirection: "row" }}>
           <Avatar
             bordered
