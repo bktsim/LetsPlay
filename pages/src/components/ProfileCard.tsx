@@ -27,7 +27,7 @@ interface ProfileCardInfo {
 }
 
 const ProfileCard = ({ info }: ProfileCardInfo) => {
-  const { name, team, pronouns, icon, location, bio, tags } = info;
+  const { name, team, pronouns, icon, location, bio, tags = [] } = info;
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
 
@@ -36,7 +36,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
   };
 
   return (
-    <Container>
+    <Container css={{ height: "100%" }}>
       <Card
         isPressable
         isHoverable
@@ -44,6 +44,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
         variant="bordered"
         css={{
           marginTop: 10,
+          height: "95%",
           display: "flex",
           borderColor: "$sapMediumBlue",
         }}

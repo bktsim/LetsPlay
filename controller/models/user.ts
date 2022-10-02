@@ -23,12 +23,10 @@ export interface User {
     name?: string;
     email: string;
     password: string;
-    interests?: Interest[];
-    clubIds?: string[];
     eventIds?: string[];
     pronouns?: string;
     bio?: string;
-    profilePicture?: string;
+    icon?: string;
     team?: string;
     location?: string;
     socialMedia?: string;
@@ -79,11 +77,10 @@ export const getAllUsers = async (): Promise<User[]> => {
             name: doc.name,
             email: doc.email,
             password: doc.password,
-            interests: doc.interests,
             eventIds: doc.eventIds,
             pronouns: doc.pronouns,
             bio: doc.bio,
-            profilePicture: doc.profilePicture,
+            icon: doc.icon,
             team: doc.team,
             location: doc.location,
             socialMedia: doc.socialMedia,
