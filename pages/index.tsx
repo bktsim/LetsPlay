@@ -20,7 +20,6 @@ const b = <EventCard info={eventOnline} />;
 const c = <ProfileCard info={profile} />;
 
 export async function getServerSideProps() {
-  // Fetch data from external API
   const allUsers = await fetch("http://localhost:3000/api/user", {
     method: "GET",
     headers: {
@@ -33,17 +32,26 @@ export async function getServerSideProps() {
       return [];
     }
   });
-
-  // Pass data to the page via props
-  return { props: { allUsers } }
+  const allInterests = await fetch("http://localhost:3000/api/interest", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  }).then(res => {
+    if (res.status === 200) {
+      return res.json().then((json) => json.interests);
+    } else {
+      return [];
+    }
+  });
+  return { props: { allUsers, allInterests } }
 }
 
 const Home: NextPage = (props) => {
   const { user } = useContext(LoginContext);
   const nextprops = {
     userProfile: user,
-  }; // TODO: get props from user here
-  console.log("!!!!!!!!" + JSON.stringify(props.allUsers));
+  };
   return (
     <div className={styles.container}>
       <Head>
