@@ -27,7 +27,7 @@ interface ProfileCardInfo {
 }
 
 const ProfileCard = ({ info }: ProfileCardInfo) => {
-  const { name, team, pronouns, icon, location, bio, tags } = info;
+  const { name, team, pronouns, icon, location, bio, tags = [] } = info;
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
 
