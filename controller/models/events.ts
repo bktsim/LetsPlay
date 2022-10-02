@@ -36,7 +36,8 @@ export const updateEvent = async (event: Event): Promise<Event | null> => {
 export const getAllEvents = async (): Promise<Event[]> => {
     const result = eventsCollection.find();
     const events: Event[] = [];
-    await result.forEach((doc) => { events.push({
+    await result.forEach((doc) => {
+        events.push({
             id: doc.id,
             name: doc.name,
             description: doc.description,
@@ -47,7 +48,8 @@ export const getAllEvents = async (): Promise<Event[]> => {
             organizerIds: doc.organizerIds,
             interests: doc.interests
         }
-    )});
+        )
+    });
     return events;
 }
 
@@ -61,12 +63,8 @@ export const isEvent = (obj: any): obj is Event => {
         typeof obj.description === 'string' &&
         obj.location &&
         typeof obj.location === 'string' &&
-        obj.date &&
-        obj.date instanceof Date &&
-        obj.clubId &&
-        typeof obj.clubId === 'string' &&
-        obj.atendeeIds &&
-        Array.isArray(obj.atendeeIds) &&
+        obj.attendeeIds &&
+        Array.isArray(obj.attendeeIds) &&
         obj.organizerIds &&
         Array.isArray(obj.organizerIds) &&
         obj.interests &&
