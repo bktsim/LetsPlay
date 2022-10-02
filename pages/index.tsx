@@ -9,11 +9,9 @@ import EventCarousel from "./src/components/EventCarousel";
 import ProfileCard from "./src/components/ProfileCard";
 import ProfileCarousel from "./src/components/ProfileCarousel";
 import InterestCarousel from "./src/components/InterestCarousel";
-import useStorage from "./src/hooks/storage";
 import { LoginContext } from "./_app";
-import { allHobbies, fakeHobbies, fakeUser, event, eventOnline, profile } from "./constants/fakeData";
+import { event, eventOnline, profile } from "./constants/fakeData";
 import { useContext } from "react";
-
 
 const a = <EventCard info={event} />;
 const b = <EventCard info={eventOnline} />;
@@ -23,9 +21,9 @@ export async function getServerSideProps() {
   const allUsers = await fetch("http://localhost:3000/api/user", {
     method: "GET",
     headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  }).then(res => {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  }).then((res) => {
     if (res.status === 200) {
       return res.json().then((json) => json.users);
     } else {
@@ -35,19 +33,19 @@ export async function getServerSideProps() {
   const allInterests = await fetch("http://localhost:3000/api/interest", {
     method: "GET",
     headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  }).then(res => {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  }).then((res) => {
     if (res.status === 200) {
       return res.json().then((json) => json.interests);
     } else {
       return [];
     }
   });
-  return { props: { allUsers, allInterests } }
+  return { props: { allUsers, allInterests } };
 }
 
-const Home: NextPage = (props) => {
+const Home: NextPage = (props: any) => {
   const { user } = useContext(LoginContext);
   const nextprops = {
     userProfile: user,
@@ -62,9 +60,18 @@ const Home: NextPage = (props) => {
       <CustomNavbar {...nextprops} />
       <Spacer y={1.275} />
 
-      <InterestCarousel tags={user.tags ? user.tags : []} alltags={props.allInterests} />
+      <InterestCarousel
+        tags={user.tags ? user.tags : []}
+        alltags={props.allInterests}
+      />
       <Spacer y={1} />
-      <ProfileCarousel profiles={props.allUsers.filter((userProfile) => userProfile.email !== user.email).map((userProfile) => <ProfileCard info={userProfile} />)} />
+      <ProfileCarousel
+        profiles={props.allUsers
+          .filter((userProfile: any) => userProfile.email !== user.email)
+          .map((userProfile: any) => (
+            <ProfileCard info={userProfile} />
+          ))}
+      />
       <Spacer y={1} />
       <EventCarousel events={[a, b, a, a, b]} allTags={props.allInterests} />
       <Spacer y={1} />
