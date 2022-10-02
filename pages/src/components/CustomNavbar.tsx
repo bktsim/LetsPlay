@@ -2,7 +2,6 @@ import {
   Avatar,
   Button,
   Container,
-  Grid,
   Navbar,
   Popover,
   Spacer,
@@ -21,7 +20,7 @@ const Texts = {
 const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
   <Textarea
     animated={false}
-    value={currentText ? currentText : ''}
+    value={currentText ? currentText : ""}
     fullWidth
     minRows={rows ? rows : 1}
     bordered
@@ -33,7 +32,7 @@ const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
 const saveChanges = () => {};
 
 interface Props {
-  userProfile: User,
+  userProfile: User;
 }
 
 const CustomPopover = (props: Props) => {
