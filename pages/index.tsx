@@ -8,6 +8,7 @@ import CustomNavbar from "./src/components/CustomNavbar";
 import EventCard from "./src/components/EventCard";
 import EventCarousel from "./src/components/EventCarousel";
 import ProfileCard from "./src/components/ProfileCard";
+import ProfileCarousel from "./src/components/ProfileCarousel";
 
 const profile = {
   name: "FirstNameABC LastNameCDE",
@@ -43,6 +44,8 @@ const eventOnline = {
 
 const a = <EventCard info={event} />;
 const b = <EventCard info={eventOnline} />;
+const c = <ProfileCard info={profile} />;
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -52,6 +55,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
+      <Spacer y={1} />
+      <ProfileCarousel profiles={[c, c, c, c, c, c]} />
       <Spacer y={1} />
       <EventCarousel events={[a, b, a, a, b]} />
       {/* <ProfileCard info={profile} />

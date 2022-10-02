@@ -1,8 +1,8 @@
 import { Container, Text } from "@nextui-org/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-interface EventCarouselInfo {
-  events: JSX.Element[];
+interface ProfileCarouselInfo {
+  profiles: JSX.Element[];
 }
 
 const responsive = {
@@ -24,22 +24,22 @@ const responsive = {
   },
 };
 
-const EventCarousel = ({ events }: EventCarouselInfo) => {
+const ProfileCarousel = ({ profiles }: ProfileCarouselInfo) => {
   return (
     <Container>
       <Text
         h1
         size={34}
-        color="$sapBlue"
+        color="$sapDarkBlue"
         css={{ marginBottom: -2, paddingLeft: 5 }}
       >
-        PARTICIPATE
+        CONNECT
       </Text>
       <Container
         css={{
           border: 4,
           background: "rgba(245,245,245,0.9)",
-          borderColor: "$sapBlue",
+          borderColor: "$sapDarkBlue",
           borderStyle: "solid",
           borderRadius: 15,
         }}
@@ -64,7 +64,7 @@ const EventCarousel = ({ events }: EventCarouselInfo) => {
           }}
         >
           <Carousel responsive={responsive} infinite swipeable draggable>
-            {events}
+            {profiles}
           </Carousel>
         </Container>
       </Container>
@@ -72,4 +72,4 @@ const EventCarousel = ({ events }: EventCarouselInfo) => {
   );
 };
 
-export default EventCarousel;
+export default ProfileCarousel;

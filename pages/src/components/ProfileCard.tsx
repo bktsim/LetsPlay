@@ -36,21 +36,24 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
   };
 
   return (
-    <Container
-      css={{
-        width: 395,
-        height: 200,
-      }}
-    >
-      <Card isPressable isHoverable onPress={handler}>
+    <Container>
+      <Card
+        isPressable
+        isHoverable
+        onPress={handler}
+        variant="bordered"
+        css={{
+          marginTop: 10,
+          display: "flex",
+        }}
+      >
         <Card.Body css={{ flexDirection: "row" }}>
           <Avatar
             bordered
             src={icon}
             size={"xl"}
             css={{
-              minWidth: 100,
-              minHeight: 100,
+              aspectRatio: "1 / 1",
               marginRight: 15,
               alignSelf: "center",
             }}
@@ -101,7 +104,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
               }}
             >
               {tags.map((e) => (
-                <Badge color="primary">{e}</Badge>
+                <Badge color="secondary">{e}</Badge>
               ))}
             </Container>
           </Container>
@@ -148,7 +151,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
                 }}
               >
                 {tags.map((e) => (
-                  <Badge color="primary">{e}</Badge>
+                  <Badge color="secondary">{e}</Badge>
                 ))}
               </Card.Body>
             </Card>
@@ -171,7 +174,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
         <Modal.Footer
           css={{ display: "flex", justifyContent: "center", marginTop: -10 }}
         >
-          <Button>
+          <Button color="secondary">
             <b>Follow</b>
           </Button>
         </Modal.Footer>
