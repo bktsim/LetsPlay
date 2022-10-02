@@ -99,8 +99,8 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
             <Grid xs={12}>
               <Textarea
                 label="Event Description"
-                placeholder="What is your event about?"
-                helperText={"Text Limit: 300 Characters"}
+                placeholder="What is your event about? Be sure to attach a link to your Teams meeting if your event is Online or Hybrid!"
+                helperText={"Text Limit: 300 Characters."}
                 rows={4}
                 size={"lg"}
                 fullWidth
