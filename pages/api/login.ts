@@ -19,6 +19,7 @@ export default function handler(
         if (user) {
             return res.status(200).json(user);
         } else {
+
             return createNewUser(email, password).then((user) => {
                 if (user) {
                     return res.status(200).json(user);
@@ -29,4 +30,3 @@ export default function handler(
         }
     });
 }
-

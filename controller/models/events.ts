@@ -7,7 +7,6 @@ export interface Event {
     description: string;
     location: string;
     date: Date;
-    clubId?: string;
     attendeeIds: string[];
     organizerIds: string[];
     interests: Interest[];
@@ -43,7 +42,6 @@ export const getAllEvents = async (): Promise<Event[]> => {
             description: doc.description,
             location: doc.location,
             date: doc.date,
-            clubId: doc.clubId,
             attendeeIds: doc.attendeeIds,
             organizerIds: doc.organizerIds,
             interests: doc.interests
