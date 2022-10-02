@@ -10,8 +10,7 @@ export const LoginContext = createContext({
   loggedIn: false,
   setLoggedIn: (loggedIn: boolean) => { },
   user: {} as User,
-  setUser: (user: User) => {
-  }
+  setUser: (user: User) => { }
 })
 
 export const DataContext = createContext({
@@ -48,11 +47,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     <LoginContext.Provider value={{ loggedIn, setLoggedIn, user, setUser }}>
       <DataContext.Provider value={{ allUsers, setAllUsers, allInterests, setAllInterests }}>
         <NextUIProvider theme={SAPTheme}>
-          (!loggedIn && <LoginModal />)
-          (loggedIn && <Component {...pageProps} />)
+          <div style={{ display: !loggedIn ? "block" : "none" }}>
+            <LoginModal />
+          </div>
+
+          <div style={{ display: loggedIn ? "block" : "none" }}>
+            <Component {...pageProps} />
+          </div>
         </NextUIProvider>
       </DataContext.Provider>
-    </LoginContext.Provider>
+    </LoginContext.Provider >
   );
 }
 
