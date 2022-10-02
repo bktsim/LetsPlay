@@ -68,7 +68,7 @@ const CustomPopover = (props: Props) => {
   );
 };
 
-const CustomNavbar = () => {
+const CustomNavbar = (props: Props) => {
   return (
     <Navbar isBordered variant={"static"}>
       <Navbar.Brand>
@@ -90,13 +90,13 @@ const CustomNavbar = () => {
                 <Avatar
                   css={{ margin: 5 }}
                   size={"sm"}
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src="https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg"
                 />
-                <Text>Ariana Wattson</Text>
+                <Text>{props.userProfile.name}</Text>
               </Button>
             </Popover.Trigger>
             <Popover.Content>
-              <CustomPopover></CustomPopover>
+              <CustomPopover {...props}></CustomPopover>
             </Popover.Content>
           </Popover>
         </Navbar.Item>
