@@ -10,6 +10,8 @@ import EventCarousel from "./src/components/EventCarousel";
 import ProfileCard from "./src/components/ProfileCard";
 import ProfileCarousel from "./src/components/ProfileCarousel";
 import InterestCarousel from "./src/components/InterestCarousel";
+import useStorage from "./src/hooks/storage";
+import { LoginContext } from "./_app";
 
 const profile = {
   name: "FirstNameABC LastNameCDE",
