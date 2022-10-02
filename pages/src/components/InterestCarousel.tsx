@@ -21,6 +21,9 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
   const [userTags, setUserTags] = useState<string[]>(tags);
   const [allTags, setAllTags] = useState<string[]>(alltags);
   const [visible, setVisible] = useState(false);
+  const [alert, setAlert] = useState<string>("");
+  const [alertTimeout, setAlertTimeout] = useState<any>();
+
   const handler = () => setVisible(true);
 
   const closeHandler = () => {
@@ -85,7 +88,6 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
           borderRadius: 15,
           paddingTop: 10,
           paddingBottom: 10,
-          minHeight: 56,
         }}
       >
         {userTags.map((e) => (
@@ -107,17 +109,52 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
         open={visible}
         onClose={closeHandler}
       >
-        <Modal.Header>
-          <Text size={18} h1>
-            Add A Interest!
+        <Modal.Header css={{ display: "flex", flexDirection: "column" }}>
+          <Text size={33} h1>
+            Add A Interest
           </Text>
         </Modal.Header>
-        <Modal.Body css={{ minHeight: 225 }}>
+        <hr />
+        <Modal.Body css={{ minHeight: 260 }}>
+          <Container
+            css={{
+              margin: 0,
+              padding: 0,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Text h5 size={14}>
+              Get started by typing your interest!
+            </Text>
+            <Text small css={{ marginTop: -10, marginBottom: 5 }}>
+              You can remove your interests by clicking on them in the main
+              page.
+            </Text>
+            {alert !== "" && (
+              <Text
+                small
+                css={{
+                  color: "green",
+                  marginTop: 5,
+                  marginBottom: 2,
+                  fontWeight: "bold",
+                }}
+              >{`Successfully added ${alert}!`}</Text>
+            )}
+          </Container>
           <Combobox
             value={selectedValue}
             onChange={(tag) => {
               if (!userTags.includes(tag)) setUserTags([...userTags, tag]);
               if (!allTags.includes(tag)) setAllTags([...allTags, tag]);
+              setAlert(tag);
+              clearTimeout(alertTimeout);
+              setAlertTimeout(
+                setTimeout(() => {
+                  setAlert("");
+                }, 2000)
+              );
               setSelectedValue("");
             }}
           >
@@ -196,6 +233,9 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
           </Combobox>
         </Modal.Body>
       </Modal>
+      <Text h5 css={{ paddingLeft: 7, justifyContent: "center" }}>
+        Click on a interest to remove it from the list!
+      </Text>
     </Container>
   );
 };

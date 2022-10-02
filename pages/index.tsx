@@ -22,7 +22,6 @@ const b = <EventCard info={eventOnline} />;
 const c = <ProfileCard info={profile} />;
 
 export async function getServerSideProps() {
-  // Fetch data from external API
   const allUsers = await fetch("http://localhost:3000/api/user", {
     method: "GET",
     headers: {
@@ -71,9 +70,12 @@ interface ServerProps {
 }
 
 
-const Home: NextPage = (props: Props) => {
-  const { user } = useContext(LoginContext)
-  console.log("!!!!!!!!" + JSON.stringify(props.allUsers));
+const Home: NextPage = (props) => {
+  const { user } = useContext(LoginContext);
+  const nextprops = {
+    userProfile: user,
+  };
+>>>>>>> b06a2c0d523387efbbb56b4842996c7b4b5d4500
   return (
     <div className={styles.container}>
       <Head>
@@ -84,7 +86,7 @@ const Home: NextPage = (props: Props) => {
       <CustomNavbar />
       <Spacer y={1.275} />
 
-      <InterestCarousel tags={fakeHobbies} alltags={allHobbies} />
+      <InterestCarousel tags={user.tags ? user.tags : []} alltags={props.allInterests} />
       <Spacer y={1} />
       <ProfileCarousel profiles={props.allUsers.filter((userProfile) => userProfile.email !== user.email).map((userProfile) => <ProfileCard info={userProfile} />)} />
       <Spacer y={1} />
