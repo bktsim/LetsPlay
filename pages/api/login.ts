@@ -19,7 +19,14 @@ export default function handler(
         if (user) {
             res.status(200).json(user);
         } else {
-            res.status(400).json({ message: "User already exists" });
+
+            return createNewUser(email, password).then((user) => {
+                if (user) {
+                    return res.status(200).json(user);
+                } else {
+                    return res.status(400).json({ message: "User already exists" });
+                }
+            });
         }
     });
 }
