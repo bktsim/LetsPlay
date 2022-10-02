@@ -6,9 +6,6 @@ import {
   Container,
   Dropdown,
   Grid,
-  Input,
-  Spacer,
-  StyledBadge,
   Text,
   Textarea,
 } from "@nextui-org/react";
@@ -16,7 +13,6 @@ import { Fragment, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Badge } from "@nextui-org/react";
-import { keyframes } from "@emotion/react";
 
 const interests = ["chess", "cooking"];
 
