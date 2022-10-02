@@ -32,7 +32,8 @@ export interface User {
     team?: string;
     location?: string;
     socialMedia?: string;
-    followIDs?: string[]
+    followIDs?: string[];
+    tags?: string[];
 }
 
 export const createNewUser = async (email: string, password: string): Promise<User | null> => {
@@ -72,7 +73,7 @@ export const getUserById = async (id: string): Promise<User | null> => {
 export const getAllUsers = async (): Promise<User[]> => {
     const result = usersCollection.find();
     const users: User[] = [];
-    await result.forEach((doc) => { 
+    await result.forEach((doc) => {
         users.push({
             id: doc._id.toString(),
             name: doc.name,
@@ -86,7 +87,8 @@ export const getAllUsers = async (): Promise<User[]> => {
             team: doc.team,
             location: doc.location,
             socialMedia: doc.socialMedia,
-            followIDs: doc.followIDs
+            followIDs: doc.followIDs,
+            tags: doc.tags
         });
     });
     return users;
