@@ -1,17 +1,14 @@
 /* eslint-disable react/jsx-key */
-import { Spacer, useTheme } from "@nextui-org/react";
+import { Spacer } from "@nextui-org/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import ClubCreation from "./src/components/EventCreation";
 import CustomNavbar from "./src/components/CustomNavbar";
 import EventCard from "./src/components/EventCard";
 import EventCarousel from "./src/components/EventCarousel";
 import ProfileCard from "./src/components/ProfileCard";
 import ProfileCarousel from "./src/components/ProfileCarousel";
 import InterestCarousel from "./src/components/InterestCarousel";
-import useStorage from "./src/hooks/storage";
-import { LoginContext } from "./_app";
 import { allHobbies, fakeHobbies, fakeUser } from "./constants/fakeData";
 
 const profile = {
@@ -50,10 +47,9 @@ const a = <EventCard info={event} />;
 const b = <EventCard info={eventOnline} />;
 const c = <ProfileCard info={profile} />;
 
-
 const Home: NextPage = () => {
   const props = {
-    userProfile: fakeUser
+    userProfile: fakeUser,
   }; // TODO: get props from user here
   return (
     <div className={styles.container}>
