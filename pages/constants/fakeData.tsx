@@ -33,6 +33,7 @@ export const allHobbies = [
 export const fakeUser = {
     id: "12345",
     name: "Rus N.",
-    email: "rus@nv.com"
+    email: "rus@nv.com",
+    password: "1234"
 }
   

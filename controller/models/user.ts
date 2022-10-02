@@ -20,9 +20,9 @@ export enum Interest {
 
 export interface User {
     id: string;
-    name: string;
+    name?: string;
     email: string;
-    password?: string;
+    password: string;
     interests?: Interest[];
     clubIds?: string[];
     eventIds?: string[];
@@ -72,7 +72,7 @@ export const getUserById = async (id: string): Promise<User | null> => {
 export const getAllUsers = async (): Promise<User[]> => {
     const result = usersCollection.find();
     const users: User[] = [];
-    result.forEach((doc) => { 
+    await result.forEach((doc) => { 
         users.push({
             id: doc.id,
             name: doc.name,

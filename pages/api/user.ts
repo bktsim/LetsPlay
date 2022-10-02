@@ -24,5 +24,5 @@ export default function handler(
 }
 
 function isUser(obj: any): Boolean {
-    return 'id' in obj && 'name' in obj && 'emai' in obj;
+    return 'email' in obj && 'password' in obj;
 }
