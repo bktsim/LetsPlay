@@ -48,8 +48,17 @@ export const createNewUser = async (email: string, password: string): Promise<Us
         userObject.id = result.insertedId.toString();
         return userObject;
     }
-
 };
+
+export const findUser = async (email: string, password: string): Promise<User | null> => {
+    const user = await usersCollection.findOne({ email: email, password: password });
+    if (user) {
+        return { id: user._id.toString(), ...user } as unknown as User;
+    } else {
+        return null;
+    }
+};
+
 
 export const updateUser = async (user: User): Promise<User | null> => {
     const result = await usersCollection.updateOne({ email: user.email }, { $set: user });
@@ -72,7 +81,7 @@ export const getUserById = async (id: string): Promise<User | null> => {
 export const getAllUsers = async (): Promise<User[]> => {
     const result = usersCollection.find();
     const users: User[] = [];
-    await result.forEach((doc) => { 
+    await result.forEach((doc) => {
         users.push({
             id: doc._id.toString(),
             name: doc.name,
