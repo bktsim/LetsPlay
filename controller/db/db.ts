@@ -5,6 +5,7 @@ const client = new MongoClient(uri);
 export let usersCollection: Collection;
 export let clubsCollection: Collection;
 export let eventsCollection: Collection;
+export let interestCollection: Collection;
 
 
 
@@ -14,4 +15,5 @@ export const initializeDb = async () => {
     usersCollection = appDb.collection("users");
     clubsCollection = appDb.collection("clubs");
     eventsCollection = appDb.collection("events");
+    interestCollection = appDb.collection("interests");
 }

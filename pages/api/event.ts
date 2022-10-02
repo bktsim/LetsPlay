@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createNewEvent, isEvent, updateEvent } from '../../controller/models/events';
-import { createNewUser } from '../../controller/models/user';
 
 export default function handler(
     req: NextApiRequest,
