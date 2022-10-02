@@ -17,7 +17,7 @@ import { LoginContext } from "../../_app";
 import useStorage from "../hooks/storage";
 
 export const LoginModal = () => {
-    const { loggedIn, setLoggedIn } = useContext(LoginContext)
+    const { loggedIn, setLoggedIn, user, setUser } = useContext(LoginContext)
     let password = "";
     let email = "";
     return (
@@ -26,12 +26,8 @@ export const LoginModal = () => {
                 preventClose
                 aria-labelledby="modal-title"
                 open={!loggedIn}
-                color={"primary"}
-                css={{
-                    '.nextui-backdrop': {
-                        '--nextui--backdropOpacity': 1,
-                    }
-                }}
+
+                blur
             >
                 <Modal.Header>
                     <Text id="modal-title" size={18}>
@@ -86,6 +82,7 @@ export const LoginModal = () => {
                             if (res.status === 200) {
                                 setLoggedIn(true)
                                 return res.json().then(data => {
+                                    setUser(data);
                                     useStorage().setItem("loggedIn", "true", "session");
                                     useStorage().setItem("user", JSON.stringify(data), "session");
                                 })
