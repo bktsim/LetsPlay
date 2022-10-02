@@ -86,6 +86,8 @@ export const LoginModal = () => {
                                     useStorage().setItem("loggedIn", "true", "session");
                                     useStorage().setItem("user", JSON.stringify(data), "session");
                                 })
+                            } else {
+                                res.json().then((data) => console.log(data));
                             }
                         })
                     }}>

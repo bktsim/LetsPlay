@@ -36,10 +36,10 @@ export interface User {
     tags?: string[];
 }
 
-export const createNewUser = async (email: string, password: string): Promise<User | null> => {
+export const createOrGetUser = async (email: string, password: string): Promise<User> => {
     const existingUser = await usersCollection.findOne({ email: email });
     if (existingUser) {
-        return null;
+        return { id: existingUser._id.toString(), ...existingUser } as unknown as User;
     } else {
         const userObject = {
             email: email,

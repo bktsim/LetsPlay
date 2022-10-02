@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createNewUser } from '../../controller/models/user';
+import { createNewUser, createOrGetUser } from '../../controller/models/user';
 
 
 export default function handler(
@@ -15,18 +15,7 @@ export default function handler(
         res.status(400).json({ message: "Email and password are required" });
         return;
     }
-    return createNewUser(email, password).then((user) => {
-        if (user) {
-            res.status(200).json(user);
-        } else {
-
-            return createNewUser(email, password).then((user) => {
-                if (user) {
-                    return res.status(200).json(user);
-                } else {
-                    return res.status(400).json({ message: "User already exists" });
-                }
-            });
-        }
+    return createOrGetUser(email, password).then((user) => {
+        res.status(200).json(user);
     });
 }
