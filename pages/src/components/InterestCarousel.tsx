@@ -85,6 +85,7 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
           borderRadius: 15,
           paddingTop: 10,
           paddingBottom: 10,
+          minHeight: 56,
         }}
       >
         {userTags.map((e) => (
