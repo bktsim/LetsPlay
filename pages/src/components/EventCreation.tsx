@@ -18,27 +18,23 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Badge } from "@nextui-org/react";
 import { keyframes } from "@emotion/react";
 
-const interests = [
-  "chess",
-  "cooking",
-]
-
+const interests = ["chess", "cooking"];
 
 const EventCreation = () => {
-  const [selectedInterest, setSelectedInterest] = useState('')
-  const [selectedInterests, setSelectedInterests] = useState([])
-  const [query, setQuery] = useState('')
-  const [date, setDate] = useState(new Date())
-  const [eventType, setEventType] = useState("in-person")
+  const [selectedInterest, setSelectedInterest] = useState("");
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [query, setQuery] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [eventType, setEventType] = useState("in-person");
   const filteredPeople =
-    query === ''
+    query === ""
       ? interests
       : interests.filter((interest) => {
-        const interestText = interest.toLowerCase()
-        const isNotSelected = !selectedInterests.includes(interest)
-        const isMatch = interestText.includes(query.toLowerCase())
-        return isNotSelected && isMatch;
-      })
+          const interestText = interest.toLowerCase();
+          const isNotSelected = !selectedInterests.includes(interest);
+          const isMatch = interestText.includes(query.toLowerCase());
+          return isNotSelected && isMatch;
+        });
   const handleDateChange = (date: Date) => setDate(date);
   return (
     <Container css={{ display: "flex", justifyContent: "center" }}>
@@ -82,7 +78,11 @@ const EventCreation = () => {
             </Grid>
             <Grid xs={12}>
               <Dropdown>
-                <Dropdown.Button flat color="secondary" css={{ tt: "capitalize", width: "max-content" }}>
+                <Dropdown.Button
+                  flat
+                  color="secondary"
+                  css={{ tt: "capitalize", width: "max-content" }}
+                >
                   {eventType}
                 </Dropdown.Button>
                 <Dropdown.Menu
@@ -104,11 +104,17 @@ const EventCreation = () => {
 
             <Grid xs={12} css={{ flexDirection: "column" }}>
               <Text size={"$lg"}>Add some tags:</Text>
-              <Combobox value={selectedInterest} onChange={(selectedInterest) => {
-                setSelectedInterests([...selectedInterests, selectedInterest])
+              <Combobox
+                value={selectedInterest}
+                onChange={(selectedInterest) => {
+                  setSelectedInterests([
+                    ...selectedInterests,
+                    selectedInterest,
+                  ]);
 
-                setSelectedInterest('')
-              }}>
+                  setSelectedInterest("");
+                }}
+              >
                 <div className="relative mt-1">
                   <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                     <Combobox.Input
@@ -125,7 +131,15 @@ const EventCreation = () => {
                     }}
                   >
                     {selectedInterests.map((e) => (
-                      <div onClick={() => setSelectedInterests(selectedInterests.filter((interest) => interest !== e))}>
+                      <div
+                        onClick={() =>
+                          setSelectedInterests(
+                            selectedInterests.filter(
+                              (interest) => interest !== e
+                            )
+                          )
+                        }
+                      >
                         <Badge color="primary">{e}</Badge>
                       </div>
                     ))}
@@ -135,10 +149,10 @@ const EventCreation = () => {
                     leave="transition ease-in duration-100"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
-                    afterLeave={() => setQuery('')}
+                    afterLeave={() => setQuery("")}
                   >
                     <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {filteredPeople.length === 0 && query !== '' ? (
+                      {filteredPeople.length === 0 && query !== "" ? (
                         <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                           Nothing found.
                         </div>
@@ -147,7 +161,10 @@ const EventCreation = () => {
                           <Combobox.Option
                             key={person}
                             className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-teal-600 text-white' : 'text-gray-900'
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-teal-600 text-white"
+                                  : "text-gray-900"
                               }`
                             }
                             value={person}
@@ -155,17 +172,18 @@ const EventCreation = () => {
                             {({ selected, active }) => (
                               <>
                                 <span
-                                  className={`block truncate ${selected ? 'font-medium' : 'font-normal'
-                                    }`}
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
                                 >
                                   {person}
                                 </span>
                                 {selected ? (
                                   <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-teal-600'
-                                      }`}
-                                  >
-                                  </span>
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-teal-600"
+                                    }`}
+                                  ></span>
                                 ) : null}
                               </>
                             )}
@@ -196,7 +214,7 @@ const EventCreation = () => {
           </Grid.Container>
         </Card.Body>
       </Card>
-    </Container >
+    </Container>
   );
 };
 

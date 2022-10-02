@@ -9,6 +9,7 @@ import EventCard from "./src/components/EventCard";
 import EventCarousel from "./src/components/EventCarousel";
 import ProfileCard from "./src/components/ProfileCard";
 import ProfileCarousel from "./src/components/ProfileCarousel";
+import InterestCarousel from "./src/components/InterestCarousel";
 
 const profile = {
   name: "FirstNameABC LastNameCDE",
@@ -46,6 +47,18 @@ const a = <EventCard info={event} />;
 const b = <EventCard info={eventOnline} />;
 const c = <ProfileCard info={profile} />;
 
+const fakeHobbies = [
+  "eating",
+  "pooping",
+  "breathing",
+  "trolling",
+  "working",
+  "dying",
+  "living",
+  "surviving",
+  "jack sparrow",
+];
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -56,12 +69,13 @@ const Home: NextPage = () => {
       </Head>
       <CustomNavbar />
       <Spacer y={1} />
+
+      <InterestCarousel tags={fakeHobbies} />
+      <Spacer y={1} />
       <ProfileCarousel profiles={[c, c, c, c, c, c]} />
       <Spacer y={1} />
       <EventCarousel events={[a, b, a, a, b]} />
-      {/* <ProfileCard info={profile} />
-      <EventCard info={event} />
-      <EventCard info={eventOnline} /> */}
+      <Spacer y={1} />
     </div>
   );
 };

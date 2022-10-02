@@ -1,6 +1,7 @@
 import { Container, Text } from "@nextui-org/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+
 interface EventCarouselInfo {
   events: JSX.Element[];
 }
