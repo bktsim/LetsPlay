@@ -6,6 +6,8 @@ import {
   Container,
   Dropdown,
   Grid,
+  Radio,
+  Spacer,
   Text,
   Textarea,
 } from "@nextui-org/react";
@@ -14,27 +16,32 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Badge } from "@nextui-org/react";
 
-const interests = ["chess", "cooking"];
+interface EventCreationInfo {
+  tags: string[];
+}
 
-const EventCreation = () => {
-  const [selectedInterest, setSelectedInterest] = useState("");
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+const EventCreation = ({ tags }: EventCreationInfo) => {
+  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [userTags, setUserTags] = useState<string[]>([]);
   const [query, setQuery] = useState("");
   const [date, setDate] = useState(new Date());
-  const [eventType, setEventType] = useState("in-person");
-  const filteredPeople =
+  const [eventType, setEventType] = useState("In-Person");
+  const [allTags, setAllTags] = useState(tags);
+
+  const realTagQuery = allTags
+    .filter(
+      (tag) => tag.toLowerCase().includes(query) && !userTags.includes(tag)
+    )
+    .sort();
+
+  const filteredTags =
     query === ""
-      ? interests
-      : interests.filter((interest) => {
-          const interestText = interest.toLowerCase();
-          const isNotSelected = !selectedInterests.includes(interest);
-          const isMatch = interestText.includes(query.toLowerCase());
-          return isNotSelected && isMatch;
-        });
+      ? allTags.sort().slice(1, Math.min(tags.length, 6))
+      : realTagQuery.slice(1, Math.min(realTagQuery.length, 6));
+
   const handleDateChange = (date: Date) => setDate(date);
   return (
     <Container css={{ display: "flex", justifyContent: "center" }}>
-      <Text h1> Make your event! </Text>
       <Card>
         <Card.Body>
           <Grid.Container gap={2}>
@@ -50,17 +57,7 @@ const EventCreation = () => {
               />
             </Grid>
             <Grid xs={12} />
-            <Grid xs={12}>
-              <Textarea
-                label="Event Description"
-                placeholder="What is your event about?"
-                helperText={"Text Limit: 300 Characters"}
-                rows={4}
-                size={"lg"}
-                fullWidth
-                required
-              />
-            </Grid>
+
             <Grid xs={12}>
               <Textarea
                 label="Location:"
@@ -72,128 +69,26 @@ const EventCreation = () => {
                 required
               />
             </Grid>
-            <Grid xs={12}>
-              <Dropdown>
-                <Dropdown.Button
-                  flat
-                  color="secondary"
-                  css={{ tt: "capitalize", width: "max-content" }}
-                >
-                  {eventType}
-                </Dropdown.Button>
-                <Dropdown.Menu
-                  aria-label="Single selection actions"
-                  disallowEmptySelection
-                  selectionMode="single"
-                  selectedKeys={eventType}
-                  onAction={(key) => setEventType(key.toString())}
-                >
-                  <Dropdown.Item key="text">Text</Dropdown.Item>
-                  <Dropdown.Item key="number">Number</Dropdown.Item>
-                  <Dropdown.Item key="date">Date</Dropdown.Item>
-                  <Dropdown.Item key="single_date">Single Date</Dropdown.Item>
-                  <Dropdown.Item key="iteration">Iteration</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Grid>
             <Grid xs={12} />
 
-            <Grid xs={12} css={{ flexDirection: "column" }}>
-              <Text size={"$lg"}>Add some tags:</Text>
-              <Combobox
-                value={selectedInterest}
-                onChange={(selectedInterest) => {
-                  setSelectedInterests([
-                    ...selectedInterests,
-                    selectedInterest,
-                  ]);
-
-                  setSelectedInterest("");
+            <Grid xs={12}>
+              <Radio.Group
+                label="Event Mode:"
+                color="primary"
+                defaultValue="In-Person"
+                size={"sm"}
+                css={{ paddingLeft: 6 }}
+                onChange={(value) => {
+                  setEventType(value);
                 }}
               >
-                <div className="relative mt-1">
-                  <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-                    <Combobox.Input
-                      className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                      onChange={(event) => setQuery(event.target.value)}
-                    />
-                  </div>
-                  <Container
-                    css={{
-                      display: "flex",
-                      justifyContent: "left",
-                      padding: 0,
-                      marginTop: 5,
-                    }}
-                  >
-                    {selectedInterests.map((e) => (
-                      <div
-                        onClick={() =>
-                          setSelectedInterests(
-                            selectedInterests.filter(
-                              (interest) => interest !== e
-                            )
-                          )
-                        }
-                      >
-                        <Badge color="primary">{e}</Badge>
-                      </div>
-                    ))}
-                  </Container>
-                  <Transition
-                    as={Fragment}
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                    afterLeave={() => setQuery("")}
-                  >
-                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {filteredPeople.length === 0 && query !== "" ? (
-                        <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                          Nothing found.
-                        </div>
-                      ) : (
-                        filteredPeople.map((person) => (
-                          <Combobox.Option
-                            key={person}
-                            className={({ active }) =>
-                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                active
-                                  ? "bg-teal-600 text-white"
-                                  : "text-gray-900"
-                              }`
-                            }
-                            value={person}
-                          >
-                            {({ selected, active }) => (
-                              <>
-                                <span
-                                  className={`block truncate ${
-                                    selected ? "font-medium" : "font-normal"
-                                  }`}
-                                >
-                                  {person}
-                                </span>
-                                {selected ? (
-                                  <span
-                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                      active ? "text-white" : "text-teal-600"
-                                    }`}
-                                  ></span>
-                                ) : null}
-                              </>
-                            )}
-                          </Combobox.Option>
-                        ))
-                      )}
-                    </Combobox.Options>
-                  </Transition>
-                </div>
-              </Combobox>
+                <Radio value="In-Person">In-Person</Radio>
+                <Radio value="Online">Online</Radio>
+                <Radio value="Hybrid">Hybrid</Radio>
+              </Radio.Group>
             </Grid>
-
-            <Grid xs={12} css={{ flexDirection: "column" }}>
-              <Text size={"$lg"}>Select time for event:</Text>
+            <Grid xs={12} css={{ flexDirection: "column", paddingLeft: 18 }}>
+              <Text>Time:</Text>
               <DatePicker
                 selected={date}
                 onChange={handleDateChange}
@@ -201,10 +96,125 @@ const EventCreation = () => {
                 dateFormat="Pp"
               />
             </Grid>
+            <Grid xs={12}>
+              <Textarea
+                label="Event Description"
+                placeholder="What is your event about?"
+                helperText={"Text Limit: 300 Characters"}
+                rows={4}
+                size={"lg"}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid xs={12} />
 
+            <Grid xs={12} css={{ flexDirection: "column" }}>
+              <Text size={"$lg"}>Attach relevant tags:</Text>
+              <Container
+                css={{
+                  display: "flex",
+                  justifyContent: "left",
+                  padding: 0,
+                  marginTop: 5,
+                  marginBottom: 10,
+                }}
+              >
+                {userTags.map((e) => (
+                  <Badge
+                    color="primary"
+                    onClick={() =>
+                      setUserTags(userTags.filter((tag) => tag !== e))
+                    }
+                  >
+                    {e}
+                  </Badge>
+                ))}
+              </Container>
+              <Combobox
+                value={selectedValue}
+                onChange={(tag) => {
+                  if (!userTags.includes(tag)) setUserTags([...userTags, tag]);
+                  if (!allTags.includes(tag)) setAllTags([...allTags, tag]);
+                  setSelectedValue("");
+                }}
+              >
+                <Combobox.Input
+                  onChange={(event) => setQuery(event.target.value)}
+                  style={{ marginBottom: -13, borderRadius: 4 }}
+                />
+
+                <Combobox.Options style={{ width: "100%", marginLeft: 0 }}>
+                  {query.length > 0 && filteredTags.length === 0 && (
+                    <Combobox.Option
+                      key={query}
+                      value={query}
+                      style={{
+                        background: "rgba(140,140,140,1)",
+                        color: "white",
+                        border: -1,
+                        width: "100%",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {({ active }) => (
+                        <Text
+                          b
+                          css={{
+                            display: "flex",
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                            border: active
+                              ? "2px #00b9f2"
+                              : "2px rgba(0,185,242,0.3)",
+                            color: "white",
+                            width: "100%",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          {query}
+                        </Text>
+                      )}
+                    </Combobox.Option>
+                  )}
+                  {filteredTags.map((e) => (
+                    <Combobox.Option
+                      key={e}
+                      value={e}
+                      style={{
+                        background: "rgba(140,140,140,1)",
+                        color: "white",
+                        border: -1,
+                        width: "100%",
+                        marginBottom: 0,
+                      }}
+                    >
+                      {({ active }) => (
+                        <Text
+                          b
+                          css={{
+                            display: "flex",
+                            paddingLeft: 8,
+                            paddingRight: 8,
+                            border: active
+                              ? "2px #00b9f2"
+                              : "2px rgba(0,185,242,0.3)",
+                            color: "white",
+                            width: "100%",
+                            borderStyle: "solid",
+                          }}
+                        >
+                          {e}
+                        </Text>
+                      )}
+                    </Combobox.Option>
+                  ))}
+                </Combobox.Options>
+              </Combobox>
+            </Grid>
             <Grid xs={12} css={{ justifyContent: "center" }}>
-              <Button>
-                <b>Create Club</b>
+              <Button css={{ marginTop: 15 }}>
+                <b>Create Event</b>
               </Button>
             </Grid>
           </Grid.Container>
