@@ -26,11 +26,13 @@ export interface User {
     interests?: Interest[];
     clubIds?: string[];
     eventIds?: string[];
-    pronouns?: string[];
+    pronouns?: string;
     bio?: string;
     profilePicture?: string;
     team?: string;
     location?: string;
+    socialMedia?: string;
+    followIDs?: string[]
 }
 
 export const createNewUser = async (email: string, password: string): Promise<User | null> => {
@@ -82,7 +84,9 @@ export const getAllUsers = async (): Promise<User[]> => {
             bio: doc.bio,
             profilePicture: doc.profilePicture,
             team: doc.team,
-            location: doc.location
+            location: doc.location,
+            socialMedia: doc.socialMedia,
+            followIDs: doc.followIDs
         });
     });
     return users;

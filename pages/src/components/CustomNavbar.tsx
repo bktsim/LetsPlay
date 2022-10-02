@@ -8,19 +8,20 @@ import {
   Spacer,
   Text,
   Textarea,
-  User,
-  useTheme,
 } from "@nextui-org/react";
+import { User } from "../../../controller/models/user";
 
 const vSpace = 1.5;
+
+// should be enum for text
 const Texts = {
-  profileInfo: "Profile Information",
+  PROFILE_INFO: "Profile Information",
 };
 
-const CustomTextarea = (field: string, currentText: string, rows?: number) => (
+const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
   <Textarea
     animated={false}
-    value={currentText}
+    value={currentText ? currentText : ''}
     fullWidth
     minRows={rows ? rows : 1}
     bordered
@@ -31,7 +32,11 @@ const CustomTextarea = (field: string, currentText: string, rows?: number) => (
 
 const saveChanges = () => {};
 
-const CustomPopover = () => {
+interface Props {
+  userProfile: User,
+}
+
+const CustomPopover = (props: Props) => {
   return (
     <Container justify="center" direction="column" alignItems="stretch">
       <Spacer y={vSpace / 2} />
@@ -39,17 +44,17 @@ const CustomPopover = () => {
         Profile Information
       </Text>
       <Spacer y={0.5} />
-      {CustomTextarea("Name", "Ariana Wattson")}
+      {CustomTextarea("Name", props.userProfile.name)}
       <Spacer y={0.5} />
-      {CustomTextarea("Pronoun", "She/Her/Hers")}
+      {CustomTextarea("Pronoun", props.userProfile.pronouns)}
       <Spacer y={0.5} />
-      {CustomTextarea("Location", "Vancouver")}
+      {CustomTextarea("Location", props.userProfile.location)}
       <Spacer y={0.5} />
-      {CustomTextarea("Team", "Infrastructure")}
+      {CustomTextarea("Team", props.userProfile.team)}
       <Spacer y={0.5} />
-      {CustomTextarea("Biography", "Hello world", 3)}
+      {CustomTextarea("Biography", props.userProfile.bio, 3)}
       <Spacer y={0.5} />
-      {CustomTextarea("Social Medias", "None")}
+      {CustomTextarea("Social Medias", props.userProfile.socialMedia)}
       <Spacer y={1} />
       <Button onClick={saveChanges}>
         <b>Save</b>
