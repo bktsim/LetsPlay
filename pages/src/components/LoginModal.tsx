@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
     Image,
     Card,
@@ -11,25 +12,32 @@ import {
     Checkbox,
     Row,
 } from "@nextui-org/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoginContext } from "../../_app";
+import useStorage from "../hooks/storage";
 
 export const LoginModal = () => {
     const { loggedIn, setLoggedIn } = useContext(LoginContext)
+    let password = "";
+    let email = "";
     return (
         <div>
             <Modal
-                closeButton
                 preventClose
                 aria-labelledby="modal-title"
                 open={!loggedIn}
-            // onClose={closeHandler}
+                color={"primary"}
+                css={{
+                    '.nextui-backdrop': {
+                        '--nextui--backdropOpacity': 1,
+                    }
+                }}
             >
                 <Modal.Header>
                     <Text id="modal-title" size={18}>
                         Welcome to
                         <Text b size={18}>
-                            NextUI
+                            LetsPlay
                         </Text>
                     </Text>
                 </Modal.Header>
@@ -41,6 +49,7 @@ export const LoginModal = () => {
                         color="primary"
                         size="lg"
                         placeholder="Email"
+                        onChange={(e) => email = e.target.value}
                     // contentLeft={<Mail fill="currentColor" />}
                     />
                     <Input
@@ -50,14 +59,17 @@ export const LoginModal = () => {
                         color="primary"
                         size="lg"
                         placeholder="Password"
+                        onChange={(e) => password = e.target.value}
                     // contentLeft={<Password fill="currentColor" />}
                     />
-                    <Row justify="space-between">
-                        <Checkbox>
+                    {/* <Row justify="space-between">
+                        <Checkbox
+                            onClick={useStorage().setItem("loggedIn", "session", "true")}
+                        >
                             <Text size={14}>Remember me</Text>
                         </Checkbox>
                         <Text size={14}>Forgot password?</Text>
-                    </Row>
+                    </Row> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button auto onClick={() => {
@@ -67,11 +79,18 @@ export const LoginModal = () => {
                                 "Content-type": "application/json; charset=UTF-8"
                             },
                             body: JSON.stringify({
-                                email: "",
-                                password: ""
+                                email: email,
+                                password: password
                             })
-                        }).then(res => res.status === 200 ? setLoggedIn(true) : res)
-
+                        }).then(res => {
+                            if (res.status === 200) {
+                                setLoggedIn(true)
+                                return res.json().then(data => {
+                                    useStorage().setItem("loggedIn", "true", "session");
+                                    useStorage().setItem("user", JSON.stringify(data), "session");
+                                })
+                            }
+                        })
                     }}>
                         Sign in
                     </Button>
