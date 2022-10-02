@@ -56,6 +56,7 @@ export async function getServerSideProps() {
     } else {
       return [];
     }
+
   });
 
   // Pass data to the page via props
@@ -74,6 +75,7 @@ const Home: NextPage = (props: any) => {
     userProfile: user,
   };
 
+  console.log(props.allEvents);
   return (
     <div className={styles.container}>
       <Head>
@@ -97,7 +99,9 @@ const Home: NextPage = (props: any) => {
           ))}
       />
       <Spacer y={1} />
-      <EventCarousel events={props.allEvents} allTags={props.allTags} />
+      <EventCarousel events={props.allEvents.map((event: any) => {
+        return <EventCard info={event} />
+      })} allTags={props.allTags} />
       <Spacer y={1} />
     </div>
   );
