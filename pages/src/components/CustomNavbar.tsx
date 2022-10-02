@@ -9,6 +9,7 @@ import {
   Text,
   Textarea,
 } from "@nextui-org/react";
+import { text } from "stream/consumers";
 import { User } from "../../../controller/models/user";
 
 const vSpace = 1.5;
@@ -18,7 +19,7 @@ const Texts = {
   PROFILE_INFO: "Profile Information",
 };
 
-const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
+const CustomTextarea = (field: string, changeFunc: (value: string) => void, currentText?: string, rows?: number) => (
   <Textarea
     animated={false}
     value={currentText ? currentText : ''}
@@ -27,10 +28,24 @@ const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
     bordered
     color="primary"
     label={field}
+    onChange={(e) => changeFunc(e.target.value)}
   />
 );
 
-const saveChanges = () => {};
+const saveChanges = (userProfile: User) => {
+  console.log(userProfile)
+  return fetch("/api/user", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userProfile)
+  }).then((res) => {
+    return res.json().then((data) => {
+      console.log(data)
+    });
+  })
+};
 
 interface Props {
   userProfile: User,
@@ -44,23 +59,23 @@ const CustomPopover = (props: Props) => {
         Profile Information
       </Text>
       <Spacer y={0.5} />
-      {CustomTextarea("Name", props.userProfile.name)}
+      {CustomTextarea("Name", (text) => props.userProfile.name = text, props.userProfile.name)}
       <Spacer y={0.5} />
-      {CustomTextarea("Pronoun", props.userProfile.pronouns)}
+      {CustomTextarea("Pronoun", (text) => props.userProfile.pronouns = text, props.userProfile.pronouns)}
       <Spacer y={0.5} />
-      {CustomTextarea("Location", props.userProfile.location)}
+      {CustomTextarea("Location", (text) => props.userProfile.location = text, props.userProfile.location)}
       <Spacer y={0.5} />
-      {CustomTextarea("Team", props.userProfile.team)}
+      {CustomTextarea("Team", (text) => props.userProfile.team = text, props.userProfile.team)}
       <Spacer y={0.5} />
-      {CustomTextarea("Biography", props.userProfile.bio, 3)}
+      {CustomTextarea("Biography", (text) => props.userProfile.bio = text, props.userProfile.bio, 3)}
       <Spacer y={0.5} />
-      {CustomTextarea("Social Medias", props.userProfile.socialMedia)}
+      {CustomTextarea("Social Medias", (text) => props.userProfile.socialMedia = text, props.userProfile.socialMedia)}
       <Spacer y={1} />
-      <Button onClick={saveChanges}>
+      <Button onClick={() => saveChanges(props.userProfile)}>
         <b>Save</b>
       </Button>
       <Spacer y={0.5} />
-      <Button onClick={saveChanges}>
+      <Button onClick={() => saveChanges(props.userProfile)}>
         <b>Log Out</b>
       </Button>
       <Spacer y={1} />

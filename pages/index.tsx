@@ -12,6 +12,7 @@ import InterestCarousel from "./src/components/InterestCarousel";
 import useStorage from "./src/hooks/storage";
 import { LoginContext } from "./_app";
 import { allHobbies, fakeHobbies, fakeUser, event, eventOnline, profile } from "./constants/fakeData";
+import { useContext } from "react";
 
 
 const a = <EventCard info={event} />;
@@ -19,8 +20,9 @@ const b = <EventCard info={eventOnline} />;
 const c = <ProfileCard info={profile} />;
 
 const Home: NextPage = () => {
+  const { user, setUser } = useContext(LoginContext);
   const props = {
-    userProfile: fakeUser,
+    userProfile: user
   }; // TODO: get props from user here
   return (
     <div className={styles.container}>
