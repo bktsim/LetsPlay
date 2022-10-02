@@ -11,22 +11,27 @@ import {
   Text,
   Textarea,
 } from "@nextui-org/react";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Badge } from "@nextui-org/react";
+import { LoginContext } from "../../_app";
 
 interface EventCreationInfo {
   tags: string[];
 }
 
-const EventCreation = ({ tags }: EventCreationInfo) => {
+const EventCreation = () => {
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [userTags, setUserTags] = useState<string[]>([]);
+  const [user] = useContext(LoginContext)
   const [query, setQuery] = useState("");
   const [date, setDate] = useState(new Date());
   const [eventType, setEventType] = useState("In-Person");
-  const [allTags, setAllTags] = useState(tags);
+  const [eventName, setEventName] = useState("");
+  const [eventDescription, setEventDescription] = useState("")
+  const [eventLocation, setEventLocation] = useState("");
+  const [allTags, setAllTags] = useState<Array<string>>([]);
 
   const realTagQuery = allTags
     .filter(
@@ -36,7 +41,7 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
 
   const filteredTags =
     query === ""
-      ? allTags.sort().slice(1, Math.min(tags.length, 6))
+      ? allTags.sort().slice(1, Math.min(allTags.length, 6))
       : realTagQuery.slice(1, Math.min(realTagQuery.length, 6));
 
   const handleDateChange = (date: Date) => setDate(date);
@@ -52,6 +57,7 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
                 helperText={"Text Limit: 30 Characters"}
                 rows={1}
                 size={"lg"}
+                onChange={(e) => setEventName(e.target.value)}
                 fullWidth
                 required
               />
@@ -64,6 +70,7 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
                 placeholder="Where will this event take place?"
                 helperText={"Text Limit: 60 Characters"}
                 rows={1}
+                onChange={(e) => { setEventLocation(e.target.value) }}
                 size={"lg"}
                 fullWidth
                 required
@@ -102,6 +109,7 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
                 placeholder="What is your event about? Be sure to attach a link to your Teams meeting if your event is Online or Hybrid!"
                 helperText={"Text Limit: 300 Characters."}
                 rows={4}
+                onChange={(e) => setEventDescription(e.target.value)}
                 size={"lg"}
                 fullWidth
                 required
@@ -213,7 +221,25 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
               </Combobox>
             </Grid>
             <Grid xs={12} css={{ justifyContent: "center" }}>
-              <Button css={{ marginTop: 15 }}>
+              <Button css={{ marginTop: 15 }}
+                onPress={() => {
+                  return fetch("/api/event", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      name: eventName,
+                      location: eventLocation,
+                      type: eventType,
+                      date: date,
+                      description: eventDescription,
+                      organizerId: user.id,
+                      tags: userTags,
+                    })
+                  })
+                }}
+              >
                 <b>Create Event</b>
               </Button>
             </Grid>

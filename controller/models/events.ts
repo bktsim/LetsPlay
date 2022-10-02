@@ -44,8 +44,9 @@ export const getAllEvents = async (): Promise<Event[]> => {
             location: doc.location,
             date: doc.date,
             attendeeIds: doc.attendeeIds,
-            organizerIds: doc.organizerIds,
-            interests: doc.interests
+            organizer: doc.organizer,
+            interests: doc.interests,
+            type: ""
         }
         )
     });
