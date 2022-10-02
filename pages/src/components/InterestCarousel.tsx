@@ -25,7 +25,7 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
   const [alertTimeout, setAlertTimeout] = useState<any>();
 
   useEffect(() => {
-    setUserTags(tags);
+    setUserTags(tags ?? []);
   }, [tags]);
 
   const handler = () => setVisible(true);
@@ -34,7 +34,7 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
     setVisible(false);
     setQuery("");
   };
-
+  console.log(userTags);
   const noTags = allTags.filter((tag) => !userTags.includes(tag)).sort();
   const noTagsAndQuery = allTags
     .filter(
