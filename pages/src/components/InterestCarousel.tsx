@@ -236,6 +236,9 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
           </Combobox>
         </Modal.Body>
       </Modal>
+      <Text h5 css={{ paddingLeft: 7 }}>
+        Click on a interest to remove it from the list!
+      </Text>
     </Container>
   );
 };
