@@ -1,11 +1,10 @@
 import type { AppProps } from "next/app";
-import { Button, Checkbox, Input, Modal, NextUIProvider, Text, Row } from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 import SAPTheme from "./src/components/Theme";
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { LoginModal } from "./src/components/LoginModal";
-import { User } from "../controller/models/user"
+import { User } from "../controller/models/user";
 import useStorage from "./src/hooks/storage";
-import { StringDecoder } from "string_decoder";
 
 export const LoginContext = createContext({
   loggedIn: false,
@@ -36,9 +35,10 @@ export async function callGetAllUsers(): Promise<User[]> {
     }
   });
 }
-
 function MyApp({ Component, pageProps }: AppProps) {
-  const [loggedIn, setLoggedIn] = useState<boolean>(useStorage().getItem("loggedIn", "session") === "true");
+  const [loggedIn, setLoggedIn] = useState<boolean>(
+    useStorage().getItem("loggedIn", "session") === "true"
+  );
   const userStrorage: string = useStorage().getItem("user", "session");
   const parsedUser: Object = userStrorage ? JSON.parse(userStrorage) : {};
   const [user, setUser] = useState<User>(parsedUser as User)
@@ -48,8 +48,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <LoginContext.Provider value={{ loggedIn, setLoggedIn, user, setUser }}>
       <DataContext.Provider value={{ allUsers, setAllUsers, allInterests, setAllInterests }}>
         <NextUIProvider theme={SAPTheme}>
-          <LoginModal />
-          <Component {...pageProps} />
+          (!loggedIn && <LoginModal />)
+          (loggedIn && <Component {...pageProps} />)
         </NextUIProvider>
       </DataContext.Provider>
     </LoginContext.Provider>
