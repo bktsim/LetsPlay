@@ -1,9 +1,12 @@
-import { Container, Text } from "@nextui-org/react";
+import { Button, Container, Modal, Text } from "@nextui-org/react";
+import { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import EventCreation from "./EventCreation";
 
 interface EventCarouselInfo {
   events: JSX.Element[];
+  allTags: string[];
 }
 
 const responsive = {
@@ -25,17 +28,43 @@ const responsive = {
   },
 };
 
-const EventCarousel = ({ events }: EventCarouselInfo) => {
+const EventCarousel = ({ events, allTags }: EventCarouselInfo) => {
+  const [visible, setVisible] = useState(false);
+  const handler = () => setVisible(true);
+
+  const closeHandler = () => {
+    setVisible(false);
+  };
+
   return (
     <Container>
-      <Text
-        h1
-        size={34}
-        color="$sapBlue"
-        css={{ marginBottom: -2, paddingLeft: 5 }}
+      <Container
+        css={{ margin: 0, padding: 0, display: "flex", flexDirection: "row" }}
       >
-        PARTICIPATE
-      </Text>
+        <Text
+          h1
+          size={34}
+          color="$sapBlue"
+          css={{ marginBottom: -2, paddingLeft: 5 }}
+        >
+          PARTICIPATE
+        </Text>
+        <Button
+          size="sm"
+          css={{
+            marginLeft: 15,
+            paddingBottom: 0,
+            marginBottom: -5,
+            alignSelf: "center",
+            minWidth: 0,
+            minHeight: 0,
+            background: "$sapBlue",
+          }}
+          onClick={handler}
+        >
+          <b>CREATE EVENT</b>
+        </Button>
+      </Container>
       <Container
         css={{
           border: 4,
@@ -69,6 +98,14 @@ const EventCarousel = ({ events }: EventCarouselInfo) => {
           </Carousel>
         </Container>
       </Container>
+      <Modal closeButton open={visible} onClose={closeHandler} width={"1200"}>
+        <Modal.Header>
+          <Text h1>Make your event!</Text>
+        </Modal.Header>
+        <Modal.Body>
+          <EventCreation tags={allTags} />
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };

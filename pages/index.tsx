@@ -94,7 +94,7 @@ const Home: NextPage = () => {
       <Spacer y={1} />
       <ProfileCarousel profiles={[c, c, c, c, c, c]} />
       <Spacer y={1} />
-      <EventCarousel events={[a, b, a, a, b]} />
+      <EventCarousel events={[a, b, a, a, b]} allTags={allHobbies} />
       <Spacer y={1} />
     </div>
   );
