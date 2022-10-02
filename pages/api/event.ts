@@ -17,6 +17,8 @@ export default function handler(
                     res.status(400).json({ message: "Event already exists" });
                 }
             });
+        } else {
+            res.status(402).json({ message: "invalid event" })
         }
     } else if (req.method === 'PUT') {
         const requestObj = req.body;
@@ -28,6 +30,8 @@ export default function handler(
                     res.status(400).json({ message: "The event does not exist" });
                 }
             });
+        } else {
+            res.status(402).json({ message: "invalid event" })
         }
     } else {
         res.status(405).json({ message: "Only GET, POST, and PUT requests are allowed" });
