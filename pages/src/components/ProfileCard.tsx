@@ -45,6 +45,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
         css={{
           marginTop: 10,
           display: "flex",
+          borderColor: "$sapDarkBlue",
         }}
       >
         <Card.Body css={{ flexDirection: "row" }}>
