@@ -68,11 +68,11 @@ const CustomNavbar = () => {
     <Navbar isBordered variant={"static"}>
       <Navbar.Brand>
         <Container css={{ display: "flex", flexDirection: "row" }}>
-          <Text h2 color="$sapBlue" css={{ marginBottom: -5 }}>
-            SAP
+          <Text h1 color="$sapBlue" css={{ marginBottom: -5, marginLeft: -25 }}>
+            Lets
           </Text>
-          <Text h2 css={{ marginBottom: -5 }}>
-            Connect
+          <Text h1 color="$darkNavy" css={{ marginBottom: -5 }}>
+            Play
           </Text>
         </Container>
       </Navbar.Brand>
