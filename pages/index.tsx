@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar {...props} />
-      <Spacer y={1} />
+      <Spacer y={1.275} />
 
       <InterestCarousel tags={fakeHobbies} alltags={allHobbies} />
       <Spacer y={1} />
