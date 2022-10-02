@@ -52,7 +52,7 @@ export const createNewUser = async (email: string, password: string): Promise<Us
 };
 
 export const updateUser = async (user: User): Promise<User | null> => {
-    const result = await usersCollection.updateOne({ _id: user.id }, { $set: user });
+    const result = await usersCollection.updateOne({ email: user.email }, { $set: user });
     if (result.modifiedCount === 1) {
         return user;
     } else {
@@ -74,7 +74,7 @@ export const getAllUsers = async (): Promise<User[]> => {
     const users: User[] = [];
     await result.forEach((doc) => { 
         users.push({
-            id: doc.id,
+            id: doc._id.toString(),
             name: doc.name,
             email: doc.email,
             password: doc.password,
