@@ -30,7 +30,7 @@ const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
   />
 );
 
-const saveChanges = () => {};
+const saveChanges = () => { };
 
 interface Props {
   userProfile: User;
@@ -68,7 +68,7 @@ const CustomPopover = (props: Props) => {
   );
 };
 
-const CustomNavbar = (props: Props) => {
+const CustomNavbar = (props: any) => {
   return (
     <Navbar isBordered variant={"static"}>
       <Navbar.Brand>
@@ -92,7 +92,7 @@ const CustomNavbar = (props: Props) => {
                   size={"sm"}
                   src="https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg"
                 />
-                <Text>{}</Text>
+                <Text>{ }</Text>
               </Button>
             </Popover.Trigger>
             <Popover.Content>
