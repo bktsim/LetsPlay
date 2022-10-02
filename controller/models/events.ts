@@ -8,8 +8,9 @@ export interface Event {
     location: string;
     date: Date;
     attendeeIds: string[];
-    organizerIds: string[];
-    interests: Interest[];
+    organizer: string;
+    type: string;
+    interests: string[];
 };
 
 
