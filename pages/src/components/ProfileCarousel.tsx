@@ -30,7 +30,7 @@ const ProfileCarousel = ({ profiles }: ProfileCarouselInfo) => {
       <Text
         h1
         size={34}
-        color="$sapDarkBlue"
+        color="$sapMediumBlue"
         css={{ marginBottom: -2, paddingLeft: 5 }}
       >
         CONNECT
@@ -39,7 +39,7 @@ const ProfileCarousel = ({ profiles }: ProfileCarouselInfo) => {
         css={{
           border: 4,
           background: "rgba(245,245,245,0.9)",
-          borderColor: "$sapDarkBlue",
+          borderColor: "$sapMediumBlue",
           borderStyle: "solid",
           borderRadius: 15,
         }}

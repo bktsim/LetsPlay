@@ -59,6 +59,26 @@ const fakeHobbies = [
   "jack sparrow",
 ];
 
+const allHobbies = [
+  "eating",
+  "pooping",
+  "breathing",
+  "trolling",
+  "working",
+  "dying",
+  "living",
+  "surviving",
+  "jack sparrow",
+  "john cena",
+  "cena john",
+  "backflipping",
+  "coding frontend",
+  "genshin impact",
+  "impact of the genshin",
+  "impact impact genshin genshin",
+  "awawawrarawrwa",
+];
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -70,7 +90,7 @@ const Home: NextPage = () => {
       <CustomNavbar />
       <Spacer y={1} />
 
-      <InterestCarousel tags={fakeHobbies} />
+      <InterestCarousel tags={fakeHobbies} alltags={allHobbies} />
       <Spacer y={1} />
       <ProfileCarousel profiles={[c, c, c, c, c, c]} />
       <Spacer y={1} />

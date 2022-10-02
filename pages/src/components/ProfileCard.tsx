@@ -45,7 +45,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
         css={{
           marginTop: 10,
           display: "flex",
-          borderColor: "$sapDarkBlue",
+          borderColor: "$sapMediumBlue",
         }}
       >
         <Card.Body css={{ flexDirection: "row" }}>
@@ -105,7 +105,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
               }}
             >
               {tags.map((e) => (
-                <Badge color="secondary">{e}</Badge>
+                <Badge css={{ background: "$sapMediumBlue" }}>{e}</Badge>
               ))}
             </Container>
           </Container>
@@ -152,7 +152,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
                 }}
               >
                 {tags.map((e) => (
-                  <Badge color="secondary">{e}</Badge>
+                  <Badge css={{ background: "$sapMediumBlue" }}>{e}</Badge>
                 ))}
               </Card.Body>
             </Card>
@@ -175,7 +175,7 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
         <Modal.Footer
           css={{ display: "flex", justifyContent: "center", marginTop: -10 }}
         >
-          <Button color="secondary">
+          <Button css={{ background: "$sapMediumBlue" }}>
             <b>Follow</b>
           </Button>
         </Modal.Footer>
