@@ -1,13 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createNewEvent, isEvent, updateEvent } from '../../controller/models/events';
-import { createNewUser } from '../../controller/models/user';
+import { createNewEvent, getAllEvents, isEvent, updateEvent } from '../../controller/models/events';
 
 export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Object>
 ) {
     if (req.method === 'GET') {
-        res.status(200).json({ name: 'John Doe' })
+        return getAllEvents().then((events => {
+            res.status(200).json({ events: events })
+        }));
     } else if (req.method === 'POST') {
         const requestObj = req.body;
         if (isEvent(requestObj)) {
@@ -18,6 +19,8 @@ export default function handler(
                     res.status(400).json({ message: "Event already exists" });
                 }
             });
+        } else {
+            res.status(402).json({ message: "invalid event" })
         }
     } else if (req.method === 'PUT') {
         const requestObj = req.body;
@@ -29,6 +32,8 @@ export default function handler(
                     res.status(400).json({ message: "The event does not exist" });
                 }
             });
+        } else {
+            res.status(402).json({ message: "invalid event" })
         }
     } else {
         res.status(405).json({ message: "Only GET, POST, and PUT requests are allowed" });
