@@ -8,31 +8,12 @@ import {
   Modal,
   Text,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface InterestCarousel {
   tags: string[];
   alltags: string[];
 }
-
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 10,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 15,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
 
 const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
   const [selectedValue, setSelectedValue] = useState<string>("");
@@ -47,11 +28,14 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
     setQuery("");
   };
 
-  const noTags = allTags.filter((tag) => !userTags.includes(tag));
-  const noTagsAndQuery = allTags.filter(
-    (tag) =>
-      tag.toLowerCase().includes(query.toLowerCase()) && !userTags.includes(tag)
-  );
+  const noTags = allTags.filter((tag) => !userTags.includes(tag)).sort();
+  const noTagsAndQuery = allTags
+    .filter(
+      (tag) =>
+        tag.toLowerCase().includes(query.toLowerCase()) &&
+        !userTags.includes(tag)
+    )
+    .sort();
 
   const filteredTags =
     query === ""
@@ -60,8 +44,6 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
 
   const killBadge = (tag: string) => {
     setUserTags(userTags.filter((e) => e !== tag));
-    console.log(allTags);
-    // need logic to delete from allTags if no one is subscribed to it
   };
 
   return (
@@ -145,24 +127,36 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
               style={{ marginBottom: -13, borderRadius: 4 }}
             />
             <Combobox.Options style={{ width: "100%", marginLeft: 0 }}>
-              {query.length > 0 && (
+              {query.length > 0 && filteredTags.length === 0 && (
                 <Combobox.Option
                   key={query}
                   value={query}
                   style={{
-                    background: "rgba(122,122,122,0.9)",
+                    background: "rgba(140,140,140,1)",
                     color: "white",
                     border: -1,
-                    borderLeft: 4,
-                    borderRight: 4,
-                    borderStyle: "solid",
                     width: "100%",
                     marginBottom: 0,
                   }}
                 >
-                  <Text b css={{ padding: 8, color: "white" }}>
-                    {query}
-                  </Text>
+                  {({ active }) => (
+                    <Text
+                      b
+                      css={{
+                        display: "flex",
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        border: active
+                          ? "2px #00b9f2"
+                          : "2px rgba(0,185,242,0.3)",
+                        color: "white",
+                        width: "100%",
+                        borderStyle: "solid",
+                      }}
+                    >
+                      {query}
+                    </Text>
+                  )}
                 </Combobox.Option>
               )}
               {filteredTags.map((e) => (
@@ -170,19 +164,31 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
                   key={e}
                   value={e}
                   style={{
-                    background: "rgba(122,122,122,0.9)",
+                    background: "rgba(140,140,140,1)",
                     color: "white",
                     border: -1,
-                    borderLeft: 4,
-                    borderRight: 4,
-                    borderStyle: "solid",
                     width: "100%",
                     marginBottom: 0,
                   }}
                 >
-                  <Text b css={{ padding: 8, color: "white" }}>
-                    {e}
-                  </Text>
+                  {({ active }) => (
+                    <Text
+                      b
+                      css={{
+                        display: "flex",
+                        paddingLeft: 8,
+                        paddingRight: 8,
+                        border: active
+                          ? "2px #00b9f2"
+                          : "2px rgba(0,185,242,0.3)",
+                        color: "white",
+                        width: "100%",
+                        borderStyle: "solid",
+                      }}
+                    >
+                      {e}
+                    </Text>
+                  )}
                 </Combobox.Option>
               ))}
             </Combobox.Options>
