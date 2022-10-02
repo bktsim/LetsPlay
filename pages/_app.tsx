@@ -8,9 +8,9 @@ import useStorage from "./src/hooks/storage";
 
 export const LoginContext = createContext({
   loggedIn: false,
-  setLoggedIn: (loggedIn: boolean) => { },
+  setLoggedIn: (loggedIn: boolean) => {},
   user: {} as User,
-  setUser: (user: User) => { },
+  setUser: (user: User) => {},
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -23,8 +23,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <LoginContext.Provider value={{ loggedIn, setLoggedIn, user, setUser }}>
       <NextUIProvider theme={SAPTheme}>
-        (!loggedIn && <LoginModal />)
-        (loggedIn && <Component {...pageProps} />)
+        <div style={{ display: !loggedIn ? "block" : "none" }}>
+          <LoginModal />
+        </div>
+
+        <div style={{ display: loggedIn ? "block" : "none" }}>
+          <Component {...pageProps} />
+        </div>
       </NextUIProvider>
     </LoginContext.Provider>
   );
