@@ -16,10 +16,10 @@ import { Badge } from "@nextui-org/react";
 import { LoginContext } from "../../_app";
 
 interface EventCreationInfo {
-  tags: string[];
+  closeHandler: any;
 }
 
-const EventCreation = () => {
+const EventCreation = ({ closeHandler }: EventCreationInfo) => {
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [userTags, setUserTags] = useState<string[]>([]);
   const { user } = useContext(LoginContext);
@@ -57,8 +57,9 @@ const EventCreation = () => {
               <Textarea
                 label="Event Name"
                 placeholder="Movie Watchparty"
-                helperText={"Text Limit: 30 Characters"}
+                helperText={`${30 - eventName.length} Characters Remaining`}
                 rows={1}
+                maxLength={30}
                 size={"lg"}
                 onChange={(e) => setEventName(e.target.value)}
                 fullWidth
@@ -66,23 +67,6 @@ const EventCreation = () => {
               />
             </Grid>
             <Grid xs={12} />
-
-            <Grid xs={12}>
-              <Textarea
-                label="Location:"
-                placeholder="Where will this event take place?"
-                helperText={"Text Limit: 60 Characters"}
-                rows={1}
-                onChange={(e) => {
-                  setEventLocation(e.target.value);
-                }}
-                size={"lg"}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid xs={12} />
-
             <Grid xs={12}>
               <Radio.Group
                 label="Event Mode:"
@@ -99,6 +83,33 @@ const EventCreation = () => {
                 <Radio value="Hybrid">Hybrid</Radio>
               </Radio.Group>
             </Grid>
+            <Grid xs={12}>
+              <Textarea
+                label="Location:"
+                placeholder={
+                  eventType === "Online"
+                    ? "No location for online events"
+                    : "Where will this event take place?"
+                }
+                helperText={
+                  eventType === "Online"
+                    ? undefined
+                    : `${60 - eventLocation.length} Characters Remaining`
+                }
+                rows={1}
+                onChange={(e) => {
+                  setEventLocation(e.target.value);
+                  if (eventType === "Online") setEventLocation("");
+                }}
+                disabled={eventType === "Online"}
+                size={"lg"}
+                maxLength={60}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid xs={12} />
+
             <Grid xs={12} css={{ flexDirection: "column", paddingLeft: 18 }}>
               <Text>Time:</Text>
               <DatePicker
@@ -112,7 +123,10 @@ const EventCreation = () => {
               <Textarea
                 label="Event Description"
                 placeholder="What is your event about? Be sure to attach a link to your Teams meeting if your event is Online or Hybrid!"
-                helperText={"Text Limit: 300 Characters."}
+                helperText={`${
+                  300 - eventDescription.length
+                } Characters Remaining`}
+                maxLength={300}
                 rows={4}
                 onChange={(e) => setEventDescription(e.target.value)}
                 size={"lg"}
@@ -229,7 +243,7 @@ const EventCreation = () => {
               <Button
                 css={{ marginTop: 15 }}
                 onPress={() => {
-                  return fetch("/api/event", {
+                  const a = fetch("/api/event", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -244,6 +258,8 @@ const EventCreation = () => {
                       tags: userTags,
                     }),
                   });
+                  closeHandler();
+                  return a;
                 }}
               >
                 <b>Create Event</b>

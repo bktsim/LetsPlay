@@ -103,7 +103,7 @@ const EventCarousel = ({ events, allTags }: EventCarouselInfo) => {
           <Text h1>Make your event!</Text>
         </Modal.Header>
         <Modal.Body>
-          <EventCreation />
+          <EventCreation closeHandler={closeHandler} />
         </Modal.Body>
       </Modal>
     </Container>
