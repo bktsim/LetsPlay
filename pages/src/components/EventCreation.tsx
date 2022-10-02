@@ -1,17 +1,15 @@
 /* eslint-disable react/jsx-key */
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox } from "@headlessui/react";
 import {
   Button,
   Card,
   Container,
-  Dropdown,
   Grid,
   Radio,
-  Spacer,
   Text,
   Textarea,
 } from "@nextui-org/react";
-import { Fragment, useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Badge } from "@nextui-org/react";
@@ -24,14 +22,19 @@ interface EventCreationInfo {
 const EventCreation = () => {
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [userTags, setUserTags] = useState<string[]>([]);
-  const [user] = useContext(LoginContext)
+  const { user } = useContext(LoginContext);
   const [query, setQuery] = useState("");
   const [date, setDate] = useState(new Date());
   const [eventType, setEventType] = useState("In-Person");
   const [eventName, setEventName] = useState("");
-  const [eventDescription, setEventDescription] = useState("")
+  const [eventDescription, setEventDescription] = useState("");
   const [eventLocation, setEventLocation] = useState("");
   const [allTags, setAllTags] = useState<Array<string>>([]);
+  const [defaultUser, setDefaultUser] = useState<any>(null);
+
+  useEffect(() => {
+    setDefaultUser(user);
+  }, [user]);
 
   const realTagQuery = allTags
     .filter(
@@ -70,7 +73,9 @@ const EventCreation = () => {
                 placeholder="Where will this event take place?"
                 helperText={"Text Limit: 60 Characters"}
                 rows={1}
-                onChange={(e) => { setEventLocation(e.target.value) }}
+                onChange={(e) => {
+                  setEventLocation(e.target.value);
+                }}
                 size={"lg"}
                 fullWidth
                 required
@@ -221,7 +226,8 @@ const EventCreation = () => {
               </Combobox>
             </Grid>
             <Grid xs={12} css={{ justifyContent: "center" }}>
-              <Button css={{ marginTop: 15 }}
+              <Button
+                css={{ marginTop: 15 }}
                 onPress={() => {
                   return fetch("/api/event", {
                     method: "POST",
@@ -234,10 +240,10 @@ const EventCreation = () => {
                       type: eventType,
                       date: date,
                       description: eventDescription,
-                      organizerId: user.id,
+                      organizerId: defaultUser ? defaultUser.id : null,
                       tags: userTags,
-                    })
-                  })
+                    }),
+                  });
                 }}
               >
                 <b>Create Event</b>
