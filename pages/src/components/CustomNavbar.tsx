@@ -21,7 +21,7 @@ const Texts = {
 const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
   <Textarea
     animated={false}
-    value={currentText ? currentText : ''}
+    value={currentText ? currentText : ""}
     fullWidth
     minRows={rows ? rows : 1}
     bordered
@@ -33,7 +33,7 @@ const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
 const saveChanges = () => {};
 
 interface Props {
-  userProfile: User,
+  userProfile: User;
 }
 
 const CustomPopover = (props: Props) => {
@@ -92,7 +92,7 @@ const CustomNavbar = (props: Props) => {
                   size={"sm"}
                   src="https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg"
                 />
-                <Text>{props.userProfile.name}</Text>
+                <Text>{}</Text>
               </Button>
             </Popover.Trigger>
             <Popover.Content>
