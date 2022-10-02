@@ -56,7 +56,7 @@ const Home: NextPage = (props) => {
 
       <InterestCarousel tags={fakeHobbies} alltags={allHobbies} />
       <Spacer y={1} />
-      <ProfileCarousel profiles={props.allUsers.map((userProfile) => <ProfileCard info={userProfile} />)} />
+      <ProfileCarousel profiles={props.allUsers.filter((userProfile) => userProfile.email !== user.email).map((userProfile) => <ProfileCard info={userProfile} />)} />
       <Spacer y={1} />
       <EventCarousel events={[a, b, a, a, b]} allTags={allHobbies} />
       <Spacer y={1} />
