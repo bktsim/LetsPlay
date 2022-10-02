@@ -32,11 +32,11 @@ const CustomTextarea = (field: string, currentText?: string, rows?: number) => (
 
 const saveChanges = () => {};
 
-interface Props {
+interface CustomProps {
   userProfile: User;
 }
 
-const CustomPopover = (props: Props) => {
+const CustomPopover = ({ userProfile }: CustomProps) => {
   return (
     <Container justify="center" direction="column" alignItems="stretch">
       <Spacer y={vSpace / 2} />
@@ -44,17 +44,20 @@ const CustomPopover = (props: Props) => {
         Profile Information
       </Text>
       <Spacer y={0.5} />
-      {CustomTextarea("Name", props.userProfile.name)}
+      {CustomTextarea("Name", userProfile ? userProfile.name : "")}
       <Spacer y={0.5} />
-      {CustomTextarea("Pronoun", props.userProfile.pronouns)}
+      {CustomTextarea("Pronoun", userProfile ? userProfile.pronouns : "")}
       <Spacer y={0.5} />
-      {CustomTextarea("Location", props.userProfile.location)}
+      {CustomTextarea("Location", userProfile ? userProfile.location : "")}
       <Spacer y={0.5} />
-      {CustomTextarea("Team", props.userProfile.team)}
+      {CustomTextarea("Team", userProfile ? userProfile.team : "")}
       <Spacer y={0.5} />
-      {CustomTextarea("Biography", props.userProfile.bio, 3)}
+      {CustomTextarea("Biography", userProfile ? userProfile.bio : "")}
       <Spacer y={0.5} />
-      {CustomTextarea("Social Medias", props.userProfile.socialMedia)}
+      {CustomTextarea(
+        "Social Medias",
+        userProfile ? userProfile.socialMedia : ""
+      )}
       <Spacer y={1} />
       <Button onClick={saveChanges}>
         <b>Save</b>
@@ -68,7 +71,7 @@ const CustomPopover = (props: Props) => {
   );
 };
 
-const CustomNavbar = (props: any) => {
+const CustomNavbar = ({ userProfile }: CustomProps) => {
   return (
     <Navbar isBordered variant={"static"}>
       <Navbar.Brand>
@@ -90,13 +93,13 @@ const CustomNavbar = (props: any) => {
                 <Avatar
                   css={{ margin: 5 }}
                   size={"sm"}
-                  src="https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg"
+                  src={userProfile ? userProfile.icon : ""}
                 />
-                <Text>{}</Text>
+                <Text>{userProfile ? userProfile.name : ""}</Text>
               </Button>
             </Popover.Trigger>
             <Popover.Content>
-              <CustomPopover {...props}></CustomPopover>
+              <CustomPopover userProfile={userProfile}></CustomPopover>
             </Popover.Content>
           </Popover>
         </Navbar.Item>
