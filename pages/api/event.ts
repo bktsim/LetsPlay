@@ -11,7 +11,9 @@ export default function handler(
         }));
     } else if (req.method === 'POST') {
         const requestObj = req.body;
+        console.log("requestObj", requestObj);
         if (isEvent(requestObj)) {
+            console.log("IS EVENT")
             return createNewEvent(requestObj).then((event) => {
                 if (event) {
                     res.status(200).json(event);

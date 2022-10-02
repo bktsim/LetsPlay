@@ -79,7 +79,7 @@ const EventCard = ({ info }: EventCardProps) => {
             </Text>
             <Text small css={{ marginBottom: 15 }}>
               <b>Time: </b>
-              {date.toTimeString()}
+              {date}
             </Text>
             <Container
               css={{

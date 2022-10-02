@@ -10,7 +10,7 @@ export interface Event {
     attendeeIds: string[];
     organizer: string;
     type: string;
-    interests: string[];
+    tags: string[];
 };
 
 
@@ -45,8 +45,8 @@ export const getAllEvents = async (): Promise<Event[]> => {
             date: doc.date,
             attendeeIds: doc.attendeeIds,
             organizer: doc.organizer,
-            interests: doc.interests,
-            type: ""
+            tags: doc.tags,
+            type: doc.type
         }
         )
     });
@@ -63,11 +63,9 @@ export const isEvent = (obj: any): obj is Event => {
         typeof obj.description === 'string' &&
         obj.location &&
         typeof obj.location === 'string' &&
-        obj.attendeeIds &&
-        Array.isArray(obj.attendeeIds) &&
-        obj.organizerIds &&
-        Array.isArray(obj.organizerIds) &&
-        obj.interests &&
-        Array.isArray(obj.interests)
+        obj.organizerId &&
+        typeof obj.organizerId === 'string' &&
+        obj.tags &&
+        Array.isArray(obj.tags)
     )
 }
