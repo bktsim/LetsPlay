@@ -106,12 +106,32 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
         open={visible}
         onClose={closeHandler}
       >
-        <Modal.Header>
-          <Text size={18} h1>
-            Add A Interest!
+        <Modal.Header css={{ display: "flex", flexDirection: "column" }}>
+          <Text size={33} h1>
+            Add A Interest
           </Text>
         </Modal.Header>
-        <Modal.Body css={{ minHeight: 225 }}>
+        <hr />
+        <Modal.Body css={{ minHeight: 260 }}>
+          <Container
+            css={{
+              margin: 0,
+              padding: 0,
+              display: "flex",
+              flexDirection: "column",
+              // border: "2px $sapBlue",
+              // borderStyle: "solid",
+              // borderRadius: 5,
+            }}
+          >
+            <Text h5 size={14}>
+              Get started by typing your interest!
+            </Text>
+            <Text small css={{ marginTop: -10, marginBottom: 5 }}>
+              You can remove your interests by clicking on them in the main
+              page.
+            </Text>
+          </Container>
           <Combobox
             value={selectedValue}
             onChange={(tag) => {

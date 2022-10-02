@@ -111,6 +111,10 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
 
             <Grid xs={12} css={{ flexDirection: "column" }}>
               <Text size={"$lg"}>Attach relevant tags:</Text>
+              <Text small css={{ marginBottom: 5 }}>
+                Type to get started on adding tags! You can click on tags to
+                remove them from your event.
+              </Text>
               <Container
                 css={{
                   display: "flex",
