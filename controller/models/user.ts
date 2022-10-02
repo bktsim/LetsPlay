@@ -66,3 +66,24 @@ export const getUserById = async (id: string): Promise<User | null> => {
         return null;
     }
 }
+
+export const getAllUsers = async (): Promise<User[]> => {
+    const result = usersCollection.find();
+    const users: User[] = [];
+    result.forEach((doc) => { 
+        users.push({
+            id: doc.id,
+            name: doc.name,
+            email: doc.email,
+            password: doc.password,
+            interests: doc.interests,
+            eventIds: doc.eventIds,
+            pronouns: doc.pronouns,
+            bio: doc.bio,
+            profilePicture: doc.profilePicture,
+            team: doc.team,
+            location: doc.location
+        });
+    });
+    return users;
+}
