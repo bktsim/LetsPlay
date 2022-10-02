@@ -61,8 +61,17 @@ export const LoginModal = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button auto onClick={() => {
-                        sessionStorage.setItem("loggedIn", "true")
-                        setLoggedIn(true);
+                        fetch("/api/login", {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json; charset=UTF-8"
+                            },
+                            body: JSON.stringify({
+                                email: "",
+                                password: ""
+                            })
+                        }).then(res => res.status === 200 ? setLoggedIn(true) : res)
+
                     }}>
                         Sign in
                     </Button>
