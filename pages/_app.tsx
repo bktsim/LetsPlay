@@ -8,16 +8,16 @@ import useStorage from "./src/hooks/storage";
 
 export const LoginContext = createContext({
   loggedIn: false,
-  setLoggedIn: (loggedIn: boolean) => {},
+  setLoggedIn: (loggedIn: boolean) => { },
   user: {} as User,
-  setUser: (user: User) => {},
+  setUser: (user: User) => { },
 });
 
 export const DataContext = createContext({
   allUsers: [] as User[],
-  setAllUsers: (users: User[]) => {},
+  setAllUsers: (users: User[]) => { },
   allInterests: [] as string[],
-  setAllInterests: (interests: string[]) => {},
+  setAllInterests: (interests: string[]) => { },
 });
 
 export async function callGetAllUsers(): Promise<User[]> {
@@ -34,6 +34,7 @@ export async function callGetAllUsers(): Promise<User[]> {
     }
   });
 }
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [loggedIn, setLoggedIn] = useState<boolean>(
     useStorage().getItem("loggedIn", "session") === "true"
