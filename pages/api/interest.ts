@@ -9,14 +9,9 @@ export default function handler(
         res.status(200).json({ interest: req.body })
     } else if (req.method === 'POST') {
         const requestObj = req.body;
-        if (requestObj instanceof String) {
-            return addInterests(requestObj).then((interest) => {
-                if (interest) {
-                    res.status(200).json(interest);
-                } else {
-                    res.status(400).json({ message: "Event already exists" });
-                }
-            });
+        if (requestObj instanceof Array) {
+            return addInterests(requestObj).then((interest) => 
+                res.status(200).json(interest));
         }
     } else {
         res.status(405).json({ message: "Only GET and POST requests are allowed" });
