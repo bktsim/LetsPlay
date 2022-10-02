@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { NextUIProvider } from "@nextui-org/react";
-import { SAPTheme } from "./src/components/Theme";
+import SAPTheme from "./src/components/Theme";
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

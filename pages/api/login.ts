@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { createNewUser } from '../../controller/models/user';
 
-type Data = {
-    name: string
-}
 
 export default function handler(
     req: NextApiRequest,
@@ -15,6 +13,11 @@ export default function handler(
     if (!email || !password) {
         res.status(400).json({ message: "Email and password are required" });
     }
-    console.log(req.body);
-    res.status(200).json({ message: "Login successful" });
+    return createNewUser(email, password).then((user) => {
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(400).json({ message: "User already exists" });
+        }
+    });
 }
