@@ -1,6 +1,6 @@
 import { createTheme } from "@nextui-org/react";
 
-export const SAPTheme = createTheme({
+const SAPTheme = createTheme({
   type: "light",
   theme: {
     fonts: {
@@ -23,3 +23,5 @@ export const SAPTheme = createTheme({
     },
   },
 });
+
+export default SAPTheme;
