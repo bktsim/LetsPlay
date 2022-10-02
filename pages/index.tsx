@@ -62,11 +62,11 @@ const Home: NextPage = (props) => {
       <CustomNavbar {...nextprops} />
       <Spacer y={1.275} />
 
-      <InterestCarousel tags={fakeHobbies} alltags={allHobbies} />
+      <InterestCarousel tags={user.tags ? user.tags : []} alltags={props.allInterests} />
       <Spacer y={1} />
       <ProfileCarousel profiles={props.allUsers.filter((userProfile) => userProfile.email !== user.email).map((userProfile) => <ProfileCard info={userProfile} />)} />
       <Spacer y={1} />
-      <EventCarousel events={[a, b, a, a, b]} allTags={allHobbies} />
+      <EventCarousel events={[a, b, a, a, b]} allTags={props.allInterests} />
       <Spacer y={1} />
     </div>
   );
