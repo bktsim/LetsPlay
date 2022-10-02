@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox } from "@headlessui/react";
 import {
   Button,
   Card,
@@ -24,8 +24,11 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [userTags, setUserTags] = useState<string[]>([]);
   const [query, setQuery] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [eventName, setEventName] = useState<string>("");
+  const [eventLocation, setEventLocation] = useState<string>("");
   const [eventType, setEventType] = useState("In-Person");
+  const [date, setDate] = useState<Date>(new Date());
+  const [eventDescription, setEventDescription] = useState<string>("");
   const [allTags, setAllTags] = useState(tags);
 
   const realTagQuery = allTags
@@ -49,11 +52,16 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
               <Textarea
                 label="Event Name"
                 placeholder="Movie Watchparty"
-                helperText={"Text Limit: 30 Characters"}
+                helperText={`${30 - eventName.length} Characters Remaining`}
                 rows={1}
+                value={eventName}
+                onChange={(e) => {
+                  setEventName(e.target.value);
+                }}
                 size={"lg"}
                 fullWidth
                 required
+                maxLength={30}
               />
             </Grid>
             <Grid xs={12} />
@@ -62,8 +70,13 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
               <Textarea
                 label="Location:"
                 placeholder="Where will this event take place?"
-                helperText={"Text Limit: 60 Characters"}
+                helperText={`${
+                  60 - eventLocation.length
+                } Characters Remaining.`}
                 rows={1}
+                value={eventLocation}
+                maxLength={60}
+                onChange={(e) => setEventLocation(e.target.value)}
                 size={"lg"}
                 fullWidth
                 required
@@ -100,8 +113,13 @@ const EventCreation = ({ tags }: EventCreationInfo) => {
               <Textarea
                 label="Event Description"
                 placeholder="What is your event about? Be sure to attach a link to your Teams meeting if your event is Online or Hybrid!"
-                helperText={"Text Limit: 300 Characters."}
+                helperText={`${
+                  300 - eventDescription.length
+                } characters remaining`}
+                value={eventDescription}
+                onChange={(e) => setEventDescription(e.target.value)}
                 rows={4}
+                maxLength={300}
                 size={"lg"}
                 fullWidth
                 required
