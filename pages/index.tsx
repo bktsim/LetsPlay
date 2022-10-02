@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { useTheme } from "@nextui-org/react";
+import { Spacer, useTheme } from "@nextui-org/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -52,7 +52,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
-      <EventCarousel events={[a, b]} />
+      <Spacer y={1} />
+      <EventCarousel events={[a, b, a, a, b]} />
       {/* <ProfileCard info={profile} />
       <EventCard info={event} />
       <EventCard info={eventOnline} /> */}

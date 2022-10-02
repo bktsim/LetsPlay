@@ -38,12 +38,26 @@ const EventCard = ({ info }: EventCardProps) => {
   return (
     <Container
       css={{
-        width: 395,
         display: "flex",
+        minHeight: "100%",
+        paddingTop: 15,
+        paddingBottom: 5,
       }}
     >
-      <Card isPressable isHoverable onPress={handler}>
-        <Card.Body css={{ flexDirection: "row" }}>
+      <Card
+        isPressable
+        isHoverable
+        onPress={handler}
+        variant="bordered"
+        css={{
+          paddingLeft: -15,
+          marginRight: -15,
+          borderColor: "$sapBlue",
+        }}
+      >
+        <Card.Body
+          css={{ flexDirection: "row", background: "rgba(255, 255, 255, 0.8)" }}
+        >
           <Container
             css={{
               padding: 0,
@@ -57,11 +71,15 @@ const EventCard = ({ info }: EventCardProps) => {
             <Text b h5 css={{ marginBottom: 3 }}>
               {`${name}`}
             </Text>
-            <Text small css={{ marginBottom: 15 }}>
+            <Text small css={{ marginBottom: 3 }}>
               <b>Location: </b>
               {type === "In-Person" || type === "Hybrid"
                 ? `${type} @ ${location}`
                 : `${type}`}
+            </Text>
+            <Text small css={{ marginBottom: 15 }}>
+              <b>Time: </b>
+              {date.toTimeString()}
             </Text>
             <Container
               css={{
@@ -139,7 +157,9 @@ const EventCard = ({ info }: EventCardProps) => {
             {description}
           </Text>
         </Modal.Body>
-        <Modal.Footer css={{ display: "flex", justifyContent: "center" }}>
+        <Modal.Footer
+          css={{ display: "flex", justifyContent: "center", paddingBottom: 25 }}
+        >
           <Button>
             <b>RSVP</b>
           </Button>
