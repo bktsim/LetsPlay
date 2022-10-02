@@ -20,17 +20,19 @@ export enum Interest {
 
 export interface User {
     id: string;
-    name: string;
+    name?: string;
     email: string;
-    password?: string;
+    password: string;
     interests?: Interest[];
     clubIds?: string[];
     eventIds?: string[];
-    pronouns?: string[];
+    pronouns?: string;
     bio?: string;
     profilePicture?: string;
     team?: string;
     location?: string;
+    socialMedia?: string;
+    followIDs?: string[]
 }
 
 export const createNewUser = async (email: string, password: string): Promise<User | null> => {
@@ -50,7 +52,7 @@ export const createNewUser = async (email: string, password: string): Promise<Us
 };
 
 export const updateUser = async (user: User): Promise<User | null> => {
-    const result = await usersCollection.updateOne({ _id: user.id }, { $set: user });
+    const result = await usersCollection.updateOne({ email: user.email }, { $set: user });
     if (result.modifiedCount === 1) {
         return user;
     } else {
@@ -70,9 +72,9 @@ export const getUserById = async (id: string): Promise<User | null> => {
 export const getAllUsers = async (): Promise<User[]> => {
     const result = usersCollection.find();
     const users: User[] = [];
-    result.forEach((doc) => { 
+    await result.forEach((doc) => { 
         users.push({
-            id: doc.id,
+            id: doc._id.toString(),
             name: doc.name,
             email: doc.email,
             password: doc.password,
@@ -82,7 +84,9 @@ export const getAllUsers = async (): Promise<User[]> => {
             bio: doc.bio,
             profilePicture: doc.profilePicture,
             team: doc.team,
-            location: doc.location
+            location: doc.location,
+            socialMedia: doc.socialMedia,
+            followIDs: doc.followIDs
         });
     });
     return users;
