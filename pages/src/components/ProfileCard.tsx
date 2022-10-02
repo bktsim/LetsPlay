@@ -169,7 +169,14 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
             <hr></hr>
           </Container>
         </Modal.Header>
-        <Modal.Body css={{ display: "flex", wordWrap: "break-word" }}>
+        <Modal.Body
+          css={{
+            display: "flex",
+            wordWrap: "break-word",
+            marginLeft: 25,
+            marginRight: 25,
+          }}
+        >
           <Text size={14}>{bio}</Text>
         </Modal.Body>
         <Modal.Footer
