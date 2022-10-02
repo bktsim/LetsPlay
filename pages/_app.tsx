@@ -8,16 +8,18 @@ import useStorage from "./src/hooks/storage";
 
 export const LoginContext = createContext({
   loggedIn: false,
-  setLoggedIn: (loggedIn: boolean) => {},
+  setLoggedIn: (loggedIn: boolean) => { },
   user: {} as User,
-  setUser: (user: User) => {},
+  setUser: (user: User) => { },
 });
 
 export const DataContext = createContext({
   allUsers: [] as User[],
-  setAllUsers: (users: User[]) => {},
+  setAllUsers: (users: User[]) => { },
   allInterests: [] as string[],
-  setAllInterests: (interests: string[]) => {},
+  setAllInterests: (interests: string[]) => { },
+  matchingProfiles: [] as User[],
+  setMatchingProfiles: (users: User[]) => { },
 });
 
 export async function callGetAllUsers(): Promise<User[]> {
@@ -42,11 +44,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   const parsedUser: Object = userStrorage ? JSON.parse(userStrorage) : {};
   const [user, setUser] = useState<User>(parsedUser as User);
   const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [matchingProfiles, setMatchingProfiles] = useState<User[]>(allUsers.filter((u) => u.tags.some((i) => user.tags.includes(i))));
   const [allInterests, setAllInterests] = useState<string[]>([]);
   return (
     <LoginContext.Provider value={{ loggedIn, setLoggedIn, user, setUser }}>
       <DataContext.Provider
-        value={{ allUsers, setAllUsers, allInterests, setAllInterests }}
+        value={{ allUsers, setAllUsers, allInterests, setAllInterests, matchingProfiles, setMatchingProfiles }}
       >
         <NextUIProvider theme={SAPTheme}>
           <LoginModal />

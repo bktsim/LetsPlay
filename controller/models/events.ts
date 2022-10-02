@@ -61,8 +61,8 @@ export const isEvent = (obj: any): obj is Event => {
         typeof obj.name === 'string' &&
         obj.description &&
         typeof obj.description === 'string' &&
-        obj.location &&
-        typeof obj.location === 'string' &&
+        // obj.location &&
+        // typeof obj.location === 'string' &&
         obj.organizerId &&
         typeof obj.organizerId === 'string' &&
         obj.tags &&
