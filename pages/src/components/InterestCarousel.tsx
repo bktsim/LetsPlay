@@ -24,6 +24,10 @@ const InterestCarousel = ({ tags, alltags }: InterestCarousel) => {
   const [alert, setAlert] = useState<string>("");
   const [alertTimeout, setAlertTimeout] = useState<any>();
 
+  useEffect(() => {
+    setUserTags(tags);
+  }, [tags]);
+
   const handler = () => setVisible(true);
 
   const closeHandler = () => {

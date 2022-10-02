@@ -11,7 +11,7 @@ import ProfileCarousel from "./src/components/ProfileCarousel";
 import InterestCarousel from "./src/components/InterestCarousel";
 import { LoginContext } from "./_app";
 import { event, eventOnline, profile } from "./constants/fakeData";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Interest, User } from "../controller/models/user";
 import { Event } from "../controller/models/events";
 
@@ -48,9 +48,9 @@ export async function getServerSideProps() {
   const allEvents = await fetch("http://localhost:3000/api/event", {
     method: "GET",
     headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  }).then(res => {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  }).then((res) => {
     if (res.status === 200) {
       return res.json().then((json) => json.events);
     } else {
@@ -59,7 +59,7 @@ export async function getServerSideProps() {
   });
 
   // Pass data to the page via props
-  return { props: { allUsers, allEvents, allInterests } }
+  return { props: { allUsers, allEvents, allInterests } };
 }
 
 interface ServerProps {
@@ -70,6 +70,9 @@ interface ServerProps {
 
 const Home: NextPage = (props: any) => {
   const { user } = useContext(LoginContext);
+  const [defaultUser, setDefaultUser] = useState<any>(null);
+  useEffect(() => setDefaultUser(user), [user]);
+
   const nextprops = {
     userProfile: user,
   };
@@ -85,7 +88,7 @@ const Home: NextPage = (props: any) => {
       <Spacer y={1.275} />
 
       <InterestCarousel
-        tags={user.tags ? user.tags : []}
+        tags={defaultUser ? defaultUser.tags : []}
         alltags={props.allInterests}
       />
       <Spacer y={1} />
@@ -97,7 +100,7 @@ const Home: NextPage = (props: any) => {
           ))}
       />
       <Spacer y={1} />
-      <EventCarousel events={props.allEvents} allTags={props.allTags} />
+      <EventCarousel events={[a, b, b, a, b]} allTags={props.allTags} />
       <Spacer y={1} />
     </div>
   );
