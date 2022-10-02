@@ -103,6 +103,8 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
                 justifyContent: "left",
                 padding: 0,
                 marginTop: -5,
+                flexDirection: "row-reverse",
+                flexWrap: "wrap",
               }}
             >
               {tags.map((e) => (
@@ -146,7 +148,9 @@ const ProfileCard = ({ info }: ProfileCardInfo) => {
             >
               <Card.Body
                 css={{
-                  flexDirection: "row",
+                  flexDirection: "row-reverse",
+                  display: "flex",
+                  flexWrap: "wrap",
                   paddingTop: 0,
                   paddingBottom: 15,
                   background: "transparent",

@@ -153,9 +153,11 @@ const EventCard = ({ info }: EventCardProps) => {
           </Container>
         </Modal.Header>
         <Modal.Body css={{ display: "flex", wordWrap: "break-word" }}>
-          <Text size={16} css={{ marginLeft: 55 }}>
-            {description}
-          </Text>
+          <Container>
+            <Text size={16} css={{ whiteSpace: "normal" }}>
+              {description}
+            </Text>
+          </Container>
         </Modal.Body>
         <Modal.Footer
           css={{ display: "flex", justifyContent: "center", paddingBottom: 25 }}

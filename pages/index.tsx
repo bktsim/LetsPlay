@@ -97,9 +97,14 @@ const Home: NextPage = (props: any) => {
       />
       <Spacer y={1} />
       <EventCarousel
-        events={props.allEvents.map((event) => (
-          <EventCard info={event} />
-        ))}
+        events={props.allEvents.map((event) => {
+          const newEvent = {
+            ...event,
+            organizer: props.allUsers.find((e) => e.id === event.organizerId)
+              ?.name,
+          };
+          return <EventCard info={newEvent} />;
+        })}
         allTags={props.allTags}
       />
       <Spacer y={1} />

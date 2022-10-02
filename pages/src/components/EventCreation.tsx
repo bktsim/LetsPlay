@@ -259,6 +259,7 @@ const EventCreation = ({ closeHandler }: EventCreationInfo) => {
                     }),
                   });
                   closeHandler();
+                  window.location.reload();
                   return a;
                 }}
               >

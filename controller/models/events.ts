@@ -9,6 +9,7 @@ export interface Event {
     date: Date;
     attendeeIds: string[];
     organizer: string;
+    organizerId: string;
     type: string;
     tags: string[];
 };
@@ -42,6 +43,7 @@ export const getAllEvents = async (): Promise<Event[]> => {
             name: doc.name,
             description: doc.description,
             location: doc.location,
+            organizerId: doc.organizerId,
             date: doc.date,
             attendeeIds: doc.attendeeIds,
             organizer: doc.organizer,
