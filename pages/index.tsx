@@ -96,7 +96,7 @@ const Home: NextPage = (props: any) => {
           ))}
       />
       <Spacer y={1} />
-      <EventCarousel events={[a, b]} allTags={props.allTags} />
+      <EventCarousel events={props.allEvents.map((event) => <EventCard info={event} />)} allTags={props.allTags} />
       <Spacer y={1} />
     </div>
   );
