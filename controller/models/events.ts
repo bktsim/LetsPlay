@@ -8,7 +8,7 @@ export interface Event {
     location: string;
     date: Date;
     clubId?: string;
-    atendeeIds: string[];
+    attendeeIds: string[];
     organizerIds: string[];
     interests: Interest[];
 };
@@ -32,6 +32,24 @@ export const updateEvent = async (event: Event): Promise<Event | null> => {
         return null;
     }
 };
+
+export const getAllEvents = async (): Promise<Event[]> => {
+    const result = eventsCollection.find();
+    const events: Event[] = [];
+    await result.forEach((doc) => { events.push({
+            id: doc.id,
+            name: doc.name,
+            description: doc.description,
+            location: doc.location,
+            date: doc.date,
+            clubId: doc.clubId,
+            attendeeIds: doc.attendeeIds,
+            organizerIds: doc.organizerIds,
+            interests: doc.interests
+        }
+    )});
+    return events;
+}
 
 export const isEvent = (obj: any): obj is Event => {
     return (

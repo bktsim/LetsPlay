@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createNewEvent, isEvent, updateEvent } from '../../controller/models/events';
+import { createNewEvent, getAllEvents, isEvent, updateEvent } from '../../controller/models/events';
 
 export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Object>
 ) {
     if (req.method === 'GET') {
-        res.status(200).json({ name: 'John Doe' })
+        return getAllEvents().then((events => {
+            res.status(200).json({ events: events })
+        }));
     } else if (req.method === 'POST') {
         const requestObj = req.body;
         if (isEvent(requestObj)) {
