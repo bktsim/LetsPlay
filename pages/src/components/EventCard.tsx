@@ -39,7 +39,7 @@ const EventCard = ({ info }: EventCardProps) => {
     <Container
       css={{
         width: 395,
-        height: 200,
+        display: "flex",
       }}
     >
       <Card isPressable isHoverable onPress={handler}>

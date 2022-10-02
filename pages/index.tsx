@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-key */
 import { useTheme } from "@nextui-org/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import CustomNavbar from "./src/components/CustomNavbar";
 import EventCard from "./src/components/EventCard";
+import EventCarousel from "./src/components/EventCarousel";
 import ProfileCard from "./src/components/ProfileCard";
 
 const profile = {
@@ -38,6 +40,8 @@ const eventOnline = {
   tags: ["bananas", "mischief", "online"],
 };
 
+const a = <EventCard info={event} />;
+const b = <EventCard info={eventOnline} />;
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -47,9 +51,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
-      <ProfileCard info={profile} />
+      <EventCarousel events={[a, b, b, a, b, a]} />
+      {/* <ProfileCard info={profile} />
       <EventCard info={event} />
-      <EventCard info={eventOnline} />
+      <EventCard info={eventOnline} /> */}
     </div>
   );
 };
