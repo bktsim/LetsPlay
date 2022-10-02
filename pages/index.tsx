@@ -52,7 +52,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNavbar />
-      <EventCarousel events={[a, b, b, a, b, a]} />
+      <EventCarousel events={[a, b]} />
       {/* <ProfileCard info={profile} />
       <EventCard info={event} />
       <EventCard info={eventOnline} /> */}
