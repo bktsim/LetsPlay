@@ -18,10 +18,9 @@ const a = <EventCard info={event} />;
 const b = <EventCard info={eventOnline} />;
 const c = <ProfileCard info={profile} />;
 
-
 const Home: NextPage = () => {
   const props = {
-    userProfile: fakeUser
+    userProfile: fakeUser,
   }; // TODO: get props from user here
   return (
     <div className={styles.container}>
