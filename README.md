@@ -1,4 +1,5 @@
 # LetsPlay
+![image](https://user-images.githubusercontent.com/46881538/193762304-85ec87d5-bf0b-4ef2-b88b-deed34c18cff.png)
 
 LetsPlay is a website built for the SAP Invitational Hackathon hosted by SAP in Vancouver, BC. 
 
@@ -17,7 +18,7 @@ To tackle this issue, our team created a web application over 1.5 days - aiming 
 * NextUI for frontend framework 
 * MongoDB
 
-# Run the Project
+# Build Instructions
 This project was made from the [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) bootstrap. 
 
-Although the mongoDB has been disconnected, you can still run the development server to get a look at the website by running the development server with `yarn dev` and viewing it at [http://localhost:3000](http://localhost:3000). 
+Given a valid mongoDB with at least one user, you can run the development server to get a look at the website with `yarn dev` and viewing it at [http://localhost:3000](http://localhost:3000). 
